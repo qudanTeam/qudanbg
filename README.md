@@ -1,6 +1,4 @@
-# hackernews-async-ts
-
-[Hacker News](https://news.ycombinator.com/) showcase using typescript && egg
+# Qudan API
 
 ## QuickStart
 
@@ -31,3 +29,7 @@ $ npm start
 
 - Node.js 8.x
 - Typescript 2.8+
+
+## Document
+
+[文档地址](https://documenter.getpostman.com/view/760919/RzfjnU4H#268c46e8-419f-495b-af7f-29124aaf9df5)
