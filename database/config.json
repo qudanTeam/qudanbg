@@ -1,0 +1,39 @@
+{
+  "development": {
+    "username": "root",
+    "password": "root",
+    "database": "qudan",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "define": {
+      "underscored": false,
+      "charset": "utf8mb4",
+      "dialectOptions": {
+        "collate": "utf8mb4_general_ci"
+      },
+      "timestamps": false
+    }
+  },
+  "test": {
+    "username": "root",
+    "password": "root",
+    "database": "qudan",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "mdlqd785",
+    "database": "qudan",
+    "host": "47.99.242.122",
+    "dialect": "mysql",
+    "define": {
+      "underscored": false,
+      "charset": "utf8mb4",
+      "dialectOptions": {
+        "collate": "utf8mb4_general_ci"
+      },
+      "timestamps": false
+    }
+  }
+}
