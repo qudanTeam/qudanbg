@@ -54,11 +54,27 @@ export default class AdminController extends Controller {
     };
   }
 
+  /**
+   * 修改
+   */
   async update() {
     const { ctx, service } = this;
     const { id } = ctx.params;
     // console.log(ctx.request.body, 'body');
     const reply = await service.admin.update(ctx.request.body, id);
+    ctx.body = reply;
+    ctx.status = 200;
+  }
+
+  /**
+   * 修改密码
+   */
+  async updatePassword() {
+    const { ctx, service } = this;
+    const { id } = ctx.params;
+    const { password } = ctx.request.body
+    // console.log(ctx.request.body, 'body');
+    const reply = await service.admin.resetPassword(password, Number(id));
     ctx.body = reply;
     ctx.status = 200;
   }

@@ -19,9 +19,13 @@ export default class VipConfig extends Service {
       limit,
     });
 
+    
+
     const total = await this.model.VipConfig.count();
     return {
       list,
+      page: filter.page,
+      pageSize: filter.pageSize,
       total,
     };
   }
@@ -71,5 +75,15 @@ export default class VipConfig extends Service {
     await this.model.VipConfig.destroy({where: {id}});
 
     return true;
+  }
+
+  async findOneById(id: number) {
+    const foundConfig = await this.model.VipConfig.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return foundConfig;
   }
 }

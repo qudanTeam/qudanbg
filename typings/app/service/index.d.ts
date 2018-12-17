@@ -9,6 +9,7 @@ import ExportAuth from '../../../app/service/Auth';
 import ExportBanner from '../../../app/service/Banner';
 import ExportCustomer from '../../../app/service/Customer';
 import ExportFile from '../../../app/service/File';
+import ExportMessage from '../../../app/service/Message';
 import ExportShareManager from '../../../app/service/ShareManager';
 import ExportTest from '../../../app/service/Test';
 import ExportUser from '../../../app/service/User';
@@ -23,6 +24,7 @@ declare module 'egg' {
     banner: ExportBanner;
     customer: ExportCustomer;
     file: ExportFile;
+    message: ExportMessage;
     shareManager: ExportShareManager;
     test: ExportTest;
     user: ExportUser;

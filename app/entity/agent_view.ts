@@ -11,6 +11,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: false,
       primaryKey: true,
       defaultValue: '0'
+      
     },
     user_id: {
       type: DataTypes.INTEGER(10),

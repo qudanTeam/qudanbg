@@ -12,6 +12,20 @@ export default class User extends Service {
     this.model = ctx.model;
   }
 
+  async searchUser(search: string) {
+    const users = await this.model.User.findAll({
+      where: {
+        username: {
+          [this.model.Op.like]: `%${search}%`,
+        }
+      }
+    });
+
+    return {
+      users,
+    }
+  }
+
   // 获取用户列表
   async findList(filter) {
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filter);
@@ -115,7 +129,7 @@ export default class User extends Service {
     SELECT * FROM agents_view av WHERE av.parent_user_id = :user_id
     UNION 
     SELECT agv.* FROM agents_view agv 
-    LEFT JOIN (SELECT av.user_id, av.parent_user_id FROM agents_view av) AS temp ON temp.user_id = agv.parent_user_id WHERE temp.parent_user_id = :user_id
+    LEFT JOIN agents_view pagv ON agv.parent_user_id = pagv.user_id WHERE pagv.parent_user_id = :user_id
     `;
 
     const agents = await this.model.query(sql, {

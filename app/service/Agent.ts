@@ -18,9 +18,9 @@ export default class Agent extends Service {
       condition['user_id'] = {
         [this.model.Op.like]: `%${filters.user_id}%`,
       };
-    } 
+    }
 
-    if (filters.level) {
+    if (filters.level && filters.level !== 'all') {
       condition['level'] = filters.level;
     }
     
@@ -42,28 +42,30 @@ export default class Agent extends Service {
     };
   }
 
-  async findChildReward(filters: any) {
+  async findChildReward(id: number, filters: any) {
 
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filters);
 
     let sql = `
-    SELECT tt.*, al.user_id apply_user_id, relate.parent_user_id 
+    SELECT tt.*, al.user_id apply_user_id, agv.parent_user_id, prd.product_name product_name
     FROM trade_type tt LEFT JOIN apply al ON al.id = tt.apply_id 
-    LEFT JOIN (SELECT parent_user_id, user_id FROM agents_view) relate ON relate.user_id = al.user_id WHERE 1=1
+    LEFT JOIN product prd ON prd.id = al.product_id
+    INNER JOIN (
+      SELECT * FROM agents_view av WHERE av.parent_agent_id = :id
+      UNION 
+      SELECT agvt.* FROM agents_view agvt 
+      LEFT JOIN agents_view pag ON agvt.parent_agent_id = pag.id WHERE pag.parent_agent_id = :id
+    ) AS agv ON agv.user_id = al.user_id WHERE 1=1
     `
-
-    if (filters.parent_user_id) {
-      sql += ` AND relate.parent_user_id = ${filters.parent_user_id}`;
-    }
 
     const totals = await this.model.query(`
     SELECT count(*) c FROM (${sql}) AS temp
-    `, { type: this.model.QueryTypes.SELECT });
+    `, { replacements: {id}, type: this.model.QueryTypes.SELECT });
 
     sql += ' LIMIT :offset, :limit';
 
     const list = await this.model.query(sql, {
-      replacements: { offset, limit },
+      replacements: { offset, limit, id },
       type: this.model.QueryTypes.SELECT,
     });
 
@@ -75,25 +77,31 @@ export default class Agent extends Service {
     };
   }
 
-  async findChilds(filters: any) {
+  async findChilds(id: number, filters: any) {
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filters);
     let sql = `
-    SELECT agv.parent_agent_id, agv.parent_user_id, agv.id a_agent_id, agv.user_id user_id, u.* FROM agents_view agv 
+    SELECT agv.parent_agent_id, agv.parent_user_id, agv.id a_agent_id, agv.user_id user_id, u.* 
+    FROM (
+      SELECT * FROM agents_view av WHERE av.parent_agent_id = :id
+      UNION 
+      SELECT agvt.* FROM agents_view agvt 
+      LEFT JOIN agents_view pag ON agvt.parent_agent_id = pag.id WHERE pag.parent_agent_id = :id
+    ) AS agv 
     LEFT JOIN user u ON u.id = agv.user_id WHERE 1=1
     `
 
-    if (filters.parent_user_id) {
-      sql += ` AND agv.parent_user_id = ${filters.parent_user_id}`;
-    }
+    // if (filters.parent_user_id) {
+    //   sql += ` AND agv.parent_user_id = ${filters.parent_user_id}`;
+    // }
 
     const totals = await this.model.query(`
     SELECT count(*) c FROM (${sql}) AS temp
-    `, { type: this.model.QueryTypes.SELECT });
+    `, { replacements: {id}, type: this.model.QueryTypes.SELECT });
 
     sql += ' LIMIT :offset, :limit';
 
     const list = await this.model.query(sql, {
-      replacements: { offset, limit },
+      replacements: { offset, limit, id },
       type: this.model.QueryTypes.SELECT,
     });
 

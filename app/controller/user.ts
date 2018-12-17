@@ -13,6 +13,14 @@ export default class UserController extends Controller {
     ctx.body = reply;
   }
 
+  async searchUser() {
+    const { ctx, service } = this;
+    const { search } = ctx.request.query;
+    const reply = await service.user.searchUser(search);
+
+    ctx.body = reply;
+  }
+
   async show() {
     const { ctx, service } = this;
     const id = ctx.params.id;

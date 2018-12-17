@@ -83,7 +83,7 @@ export default class Admin extends Service {
       }
     }
     if (newPassword) {
-      admin.password = newPassword;
+      admin.password = await this.ctx.helper.bcryptHash(newPassword);
     }
     await AdminModel.update(admin, {
       where: {
@@ -94,6 +94,22 @@ export default class Admin extends Service {
     return {
       id,
     };
+  }
+
+  async resetPassword(password: string, id: number) {
+    const _password = await this.ctx.helper.bcryptHash(password);
+
+    await this.model.Admin.update({
+      password: _password
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    return {
+      id,
+    }
   }
 
   async toggleEnable(id) {

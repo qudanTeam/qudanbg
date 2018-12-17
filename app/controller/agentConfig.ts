@@ -13,6 +13,19 @@ export default class AgentConfig extends Controller {
     ctx.body = reply;
   }
 
+  async show() {
+    const { ctx, service } = this;
+    const {
+      id
+    } = ctx.params;
+
+    const reply = await service.agentConfig.findOneByID(id);
+
+    ctx.body = {
+      reply,
+    };
+  }
+
   async update() {
     const { ctx, service } = this;
     // const reply = await = ser
@@ -28,6 +41,7 @@ export default class AgentConfig extends Controller {
     const reply = await service.agentConfig.create(ctx.request.body);
 
     ctx.body = reply;
+    ctx.status = 201;
   }
 
   async destroy() {

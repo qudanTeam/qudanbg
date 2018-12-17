@@ -18,12 +18,13 @@ export default class AgentController extends Controller {
     const { ctx } = this;
 
     const {
+      pid = 0,
       page = 0,
       pageSize = 15,
       ...rest
     } = ctx.request.query;
 
-    const result = await ctx.service.agent.findChildReward({ page, pageSize, ...rest });
+    const result = await ctx.service.agent.findChildReward(Number(pid), { page, pageSize, ...rest });
     this.ctx.body = result;
   }
 
@@ -31,12 +32,13 @@ export default class AgentController extends Controller {
     const { ctx } = this;
 
     const {
+      pid = 0,
       page = 0,
       pageSize = 15,
       ...rest
     } = ctx.request.query;
 
-    const result = await ctx.service.agent.findChilds({ page, pageSize, ...rest });
+    const result = await ctx.service.agent.findChilds(Number(pid), { page, pageSize, ...rest });
     this.ctx.body = result;
   }
 }

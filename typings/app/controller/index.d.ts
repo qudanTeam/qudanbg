@@ -10,6 +10,7 @@ import ExportBanner from '../../../app/controller/banner';
 import ExportCustomer from '../../../app/controller/customer';
 import ExportFile from '../../../app/controller/file';
 import ExportHome from '../../../app/controller/home';
+import ExportMessage from '../../../app/controller/message';
 import ExportShareManager from '../../../app/controller/share_manager';
 import ExportUser from '../../../app/controller/user';
 import ExportVipConfigs from '../../../app/controller/vipConfigs';
@@ -24,6 +25,7 @@ declare module 'egg' {
     customer: ExportCustomer;
     file: ExportFile;
     home: ExportHome;
+    message: ExportMessage;
     shareManager: ExportShareManager;
     user: ExportUser;
     vipConfigs: ExportVipConfigs;

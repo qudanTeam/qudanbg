@@ -56,7 +56,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     status: {
       type: DataTypes.INTEGER(2),
       allowNull: true,
-      defaultValue: '0'
+      defaultValue: '1'
     },
     user_type: {
       type: DataTypes.INTEGER(10),
@@ -93,6 +93,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     vip_level: {
       type: DataTypes.INTEGER(255),
       allowNull: true
+    },
+    finance_status: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+      defaultValue: '1'
     }
   }, {
     tableName: 'user'

@@ -42,7 +42,12 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-    }
+    },
+    position: {
+      type: DataTypes.INTEGER(2),
+      allowNull: true,
+      defaultValue: '0'
+    },
   }, {
     tableName: 'banner'
   });

@@ -19,6 +19,7 @@ export default class BannerController extends Controller {
       link,
       img,
       sort,
+      position,
       isShow = false
     } = ctx.request.body;
 
@@ -29,6 +30,7 @@ export default class BannerController extends Controller {
       img,
       sort_val: sort,
       is_show: isShow,
+      position: position,
     });
 
     ctx.body = reply;

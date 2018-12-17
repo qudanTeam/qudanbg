@@ -26,8 +26,18 @@ export default class AgentConfig extends Service {
     return true;
   }
 
+  async findOneByID(id: number) {
+    const founded = await this.model.AgentConfig.findOne({
+      where: {
+        id,
+      }
+    });
+
+    return founded;
+  }
+
   async findList(filters: any) {
-    const { offset, limit } = this.ctx.helper.parsedPageFromParams(filters);
+    const { offset, limit, page, pageSize } = this.ctx.helper.parsedPageFromParams(filters);
     
     const list = await this.model.AgentConfig.findAll({
       offset,
@@ -38,8 +48,8 @@ export default class AgentConfig extends Service {
 
     return {
       list,
-      page: filters.page,
-      pageSize: filters.pageSize,
+      page: page,
+      pageSize: pageSize,
       total,
     };
   }

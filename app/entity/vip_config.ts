@@ -59,6 +59,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     vip_level: {
       type: DataTypes.INTEGER(10),
       allowNull: true
+    },
+    promotion_price: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
     }
   }, {
     tableName: 'vip_config'

@@ -21,10 +21,15 @@ export default {
     if (offset < 0) {
       offset = 0;
     }
-
+    
+    params.page = Number(page);
+    params.pageSize = Number(pageSize);
+    
     return {
-      offset,
-      limit: pageSize,
+      offset: Number(offset),
+      limit: Number(pageSize),
+      page: Number(page),
+      pageSize: Number(pageSize),
     };
   },
 

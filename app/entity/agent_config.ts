@@ -38,11 +38,13 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     create_time: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     modify_time: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: true,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'agent_config'

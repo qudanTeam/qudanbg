@@ -19,7 +19,9 @@ export default class ShareManager extends Controller {
     const id = ctx.params.id;
     const reply = await service.shareManager.update(id, ctx.request.body);
 
-    ctx.body = reply;
+    ctx.body = {
+      reply
+    };
 
   }
 
@@ -28,6 +30,7 @@ export default class ShareManager extends Controller {
     const reply = await service.shareManager.create(ctx.request.body);
 
     ctx.body = reply;
+    ctx.status = 201;
   }
 
   async destroy() {
@@ -39,5 +42,25 @@ export default class ShareManager extends Controller {
     ctx.body = {
       message: 'ok',
     }
+  }
+
+  async searchProducts() {
+    const { ctx } = this;
+    const { model } = ctx;
+    const {
+      search = '',
+    } = ctx.request.query;
+    
+    const products = await model.Product.findAll({
+      where: {
+        product_name: {
+          [model.Op.like]: `%${search}%`,
+        }
+      }
+    });
+
+    ctx.body = {
+      products,
+    };
   }
 }

@@ -28,6 +28,18 @@ export default class VipConfigsController extends Controller {
     const reply = await service.vipConfig.create(ctx.request.body);
 
     ctx.body = reply;
+    ctx.status = 201;
+  }
+
+  async show() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+
+    const reply = await service.vipConfig.findOneById(id);
+
+    ctx.body = {
+      reply,
+    };
   }
 
   async destroy() {
