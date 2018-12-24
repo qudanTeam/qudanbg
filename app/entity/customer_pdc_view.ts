@@ -2,26 +2,18 @@
 // tslint:disable
 import * as sequelize from 'sequelize';
 import {DataTypes} from 'sequelize';
-import {agent_viewInstance, agent_viewAttribute} from './db';
+import {customer_pdc_viewInstance, customer_pdc_viewAttribute} from './db';
 
 module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) {
-  return sequelize.define<agent_viewInstance, agent_viewAttribute>('agent_view', {
+  return sequelize.define<customer_pdc_viewInstance, customer_pdc_viewAttribute>('customer_pdc_view', {
     id: {
       type: DataTypes.INTEGER(10),
       allowNull: false,
       primaryKey: true,
       defaultValue: '0'
     },
-    user_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: true
-    },
-    level: {
-      type: DataTypes.INTEGER(2),
-      allowNull: true
-    },
-    beign_agent_time: {
-      type: DataTypes.DATE,
+    name: {
+      type: DataTypes.STRING(100),
       allowNull: true
     },
     create_time: {
@@ -32,19 +24,20 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DATE,
       allowNull: true
     },
-    invite_code: {
-      type: DataTypes.STRING(200),
+    mobile: {
+      type: DataTypes.STRING(100),
       allowNull: true
     },
-    direct_rate: {
-      type: DataTypes.DECIMAL,
+    weixin: {
+      type: DataTypes.STRING(1100),
       allowNull: true
     },
-    related_rate: {
-      type: DataTypes.DECIMAL,
-      allowNull: true
+    product_count: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+      defaultValue: '0'
     }
   }, {
-    tableName: 'agent_view'
+    tableName: 'customer_pdc_view'
   });
 };

@@ -91,7 +91,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     vip_level: {
-      type: DataTypes.INTEGER(255),
+      type: DataTypes.INTEGER(11),
       allowNull: true
     },
     finance_status: {

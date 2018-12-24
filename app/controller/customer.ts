@@ -14,6 +14,14 @@ export default class CustomerController extends Controller {
     this.ctx.body = result;
   }
 
+  async search() {
+    const { ctx } = this;
+
+
+    const result = await ctx.service.customer.search(ctx.request.query);
+    this.ctx.body = result;
+  }
+
   async create() {
     const { ctx, service } = this;
     const { body } = ctx.request;

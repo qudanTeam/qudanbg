@@ -38,13 +38,13 @@ export default class Customer extends Service {
       }
     }
 
-    const reply = await this.model.Customer.findAll({
+    const reply = await this.model.CustomerPdcView.findAll({
       offset,
       limit,
       where: condition,
     });
 
-    const total = await this.model.Customer.count({
+    const total = await this.model.CustomerPdcView.count({
       where: condition,
     });
 
@@ -53,6 +53,29 @@ export default class Customer extends Service {
       page: filters.page,
       pageSize: filters.pageSize,
       total,
+    }
+  }
+
+  async search(filters: any) {
+    const { model } = this;
+    // const { model } = ctx;
+    const {
+      search = '',
+    } = filters;
+
+    const condition: any = {};
+    if (search) {
+      condition.name = {
+        [model.Op.like]: `%${search}%`,
+      }
+    }
+    
+    const customers = await model.Customer.findAll({
+      where: condition,
+    });
+
+    return {
+      customers,
     }
   }
 

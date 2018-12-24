@@ -44,10 +44,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     position: {
-      type: DataTypes.INTEGER(2),
+      type: DataTypes.INTEGER(11),
       allowNull: true,
       defaultValue: '0'
-    },
+    }
   }, {
     tableName: 'banner'
   });

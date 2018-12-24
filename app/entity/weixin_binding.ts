@@ -29,7 +29,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     wechat_logo: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(2000),
       allowNull: true
     },
     create_time: {

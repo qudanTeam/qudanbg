@@ -6,19 +6,10 @@ import {agents_viewInstance, agents_viewAttribute} from './db';
 
 module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) {
   return sequelize.define<agents_viewInstance, agents_viewAttribute>('agents_view', {
-    parent_agent_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: false,
-      primaryKey: true,
-      defaultValue: '0'
-    },
-    parent_user_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: true
-    },
     id: {
       type: DataTypes.INTEGER(10),
       allowNull: true,
+      primaryKey: true,
       defaultValue: '0'
     },
     user_id: {
@@ -39,6 +30,15 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     modify_time: {
       type: DataTypes.DATE,
+      allowNull: true
+    },
+    parent_agent_id: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false,
+      defaultValue: '0'
+    },
+    parent_user_id: {
+      type: DataTypes.INTEGER(10),
       allowNull: true
     }
   }, {

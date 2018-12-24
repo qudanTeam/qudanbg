@@ -65,7 +65,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     bg_category: {
-      type: DataTypes.STRING(10),
+      type: DataTypes.STRING(50),
       allowNull: true
     },
     amount_line: {
@@ -209,7 +209,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     card_progress_img: {
-      type: DataTypes.STRING(0),
+      type: DataTypes.STRING(255),
       allowNull: true
     },
     base_right: {
