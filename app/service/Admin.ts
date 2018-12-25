@@ -2,6 +2,7 @@
 import { Service, Context } from 'egg';
 import sequelize = require('sequelize');
 import moment = require('moment');
+// import { adminAttribute } from '../entity/db';
 
 export default class Admin extends Service {
   // model: sequelize.Model<any, any>
@@ -85,6 +86,8 @@ export default class Admin extends Service {
     if (newPassword) {
       admin.password = await this.ctx.helper.bcryptHash(newPassword);
     }
+
+    admin.update_at = new Date();
     await AdminModel.update(admin, {
       where: {
         id,

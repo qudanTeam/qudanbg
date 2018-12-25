@@ -41,6 +41,7 @@ export default class Banner extends Service {
   }
 
   async update(id: number, fields: any) {
+    fields.modify_time = new Date();
     await this.model.Banner.update(fields, {
       where: {
         id,

@@ -44,7 +44,10 @@ export default class VipConfig extends Service {
       return
     }
 
-    await this.model.VipConfig.update(body, {
+    await this.model.VipConfig.update({
+      modify_time: new Date(),
+      ...body,
+    }, {
       where: {
         id,
       }

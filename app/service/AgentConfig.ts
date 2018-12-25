@@ -67,6 +67,7 @@ export default class AgentConfig extends Service {
       this.ctx.throw(404, 'not found this config');
       return
     }
+    body.modify_time = new Date();
 
     await this.model.AgentConfig.update(body, {
       where: {

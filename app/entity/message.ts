@@ -32,6 +32,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DATE,
       allowNull: true
     },
+    modify_time: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
     user_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true

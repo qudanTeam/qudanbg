@@ -59,6 +59,7 @@ export default class Order extends Service {
   async passOne(id: number) {
     // await this.model
     await this.model.Apply.update({
+      modify_time: new Date(),
       status: 2,
     }, {
       where: {
@@ -72,7 +73,9 @@ export default class Order extends Service {
   }
 
   async refuseOne(id: number) {
+
     await this.model.Apply.update({
+      modify_time: new Date(),
       status: 3,
     }, {
       where: {

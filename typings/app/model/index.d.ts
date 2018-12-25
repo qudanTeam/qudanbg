@@ -17,6 +17,7 @@ import ExportMessage from '../../../app/model/message';
 import ExportMessageStore from '../../../app/model/message_store';
 import ExportOrderView from '../../../app/model/order_view';
 import ExportProduct from '../../../app/model/product';
+import ExportProductCategoryRelation from '../../../app/model/product_category_relation';
 import ExportProductConfig from '../../../app/model/product_config';
 import ExportShareManager from '../../../app/model/share_manager';
 import ExportTradeType from '../../../app/model/trade_type';
@@ -46,6 +47,7 @@ declare module 'sequelize' {
     MessageStore: ReturnType<typeof ExportMessageStore>;
     OrderView: ReturnType<typeof ExportOrderView>;
     Product: ReturnType<typeof ExportProduct>;
+    ProductCategoryRelation: ReturnType<typeof ExportProductCategoryRelation>;
     ProductConfig: ReturnType<typeof ExportProductConfig>;
     ShareManager: ReturnType<typeof ExportShareManager>;
     TradeType: ReturnType<typeof ExportTradeType>;

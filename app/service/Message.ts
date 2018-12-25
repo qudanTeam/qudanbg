@@ -24,6 +24,8 @@ export default class Message extends Service {
 
     const reply = await this.model.MessageStore.create({
       user_ids: encodeUserIds(user_ids),
+      create_at: new Date(),
+      update_at: new Date(),
       ...rest,
     });
 
@@ -45,6 +47,7 @@ export default class Message extends Service {
 
     await this.model.MessageStore.update({
       user_ids: encodeUserIds(user_ids),
+      update_at: new Date(),
       ...rest,
     }, {
       where: {
@@ -113,6 +116,8 @@ export default class Message extends Service {
         msg_logo: foundOne.msg_logo,
         user_id: Number(idObj.key),
         is_user_delete: 0,
+        create_time: new Date(),
+        modify_time: new Date(),
       });
     }
 

@@ -49,8 +49,10 @@ export default class ShareManager extends Service {
       this.ctx.throw(404, 'not found this config');
       return
     }
-
-    await this.model.ShareManager.update(body, {
+    await this.model.ShareManager.update({
+      modify_tiime: new Date(),
+      ...body,
+    }, {
       where: {
         id,
       }

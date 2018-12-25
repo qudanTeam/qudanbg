@@ -181,6 +181,7 @@ export interface messageAttribute {
   msg_content?:string;
   msg_link?:string;
   create_time?:Date;
+  modify_time?:Date;
   user_id?:number;
   is_user_delete?:number;
 }
