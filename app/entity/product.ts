@@ -231,7 +231,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     unit: {
       type: DataTypes.STRING(255),
       allowNull: true
-    }
+    },
+    jl_unite: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
   }, {
     tableName: 'product'
   });

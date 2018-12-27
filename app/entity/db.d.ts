@@ -340,6 +340,7 @@ export interface productAttribute {
   special_tag?:string;
   special_txt?:string;
   unit?:string;
+  jl_unite?:string;
 }
 export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
 export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }

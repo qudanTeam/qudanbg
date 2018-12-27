@@ -61,6 +61,7 @@ interface createProductAttribute {
   special_tag?:string;
   special_txt?:string;
   unit?:string;
+  jl_unite?:string;
 }
 
 
@@ -170,9 +171,60 @@ export default class Product extends Service {
     }
   }
 
-  async update(id: number, fields: any) {
+  async update(id: number, fields: createProductAttribute) {
     fields.modify_time = new Date();
-    await this.model.Product.update(fields, {
+    const { 
+      product_category,
+      advertisers_obj,
+      is_hot,
+      is_in_shop,
+      is_shelf,
+      is_show,
+      ...rest 
+    } = fields;
+
+    if (advertisers_obj) {
+      rest.customer = advertisers_obj.key;
+    }
+
+    await this.model.Product.update({
+      is_hot: is_hot ? 1 : 0,
+      is_in_shop: is_in_shop ? 1 : 0,
+      is_shelf: is_shelf ? 1 : 0,
+      is_show: is_show ? 1 : 0,
+      ...rest
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    if (product_category) {
+      await this.model.ProductCategoryRelation.destroy({
+        where: {
+          product_id: id,
+        },
+      });
+      // 新增分类关系
+      await this.model.ProductCategoryRelation.create({
+        id: 0,
+        product_id: id,
+        category_id: product_category.key,
+        create_time: new Date(),
+        modify_time: new Date(),
+      });
+    }
+
+    return {
+      id,
+    };
+  }
+
+  async disableShelf(id: number) {
+    await this.model.Product.update({
+      is_shelf: 0,
+      is_show: 0,
+    }, {
       where: {
         id,
       },
@@ -180,6 +232,104 @@ export default class Product extends Service {
 
     return {
       id,
+    }
+  }
+
+  async onShelf(id: number) {
+    await this.model.Product.update({
+      is_shelf: 1,
+      is_show: 1,
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    return {
+      id,
+    }
+  }
+
+  async details(id: number) {
+    const { ctx, model } = this;
+    const product = await model.Product.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!product) {
+      ctx.throw(404, 'not fount this product');
+      return;
+    }
+
+    const productCategory = await model.ProductCategoryRelation.findOne({
+      where: {
+        product_id: id,
+      },
+    });
+
+    let product_category = {};
+    if (productCategory) {
+      const category = await model.Category.findOne({
+        where: {
+          id: productCategory.category_id,
+        },
+      });
+
+      if (category) {
+        product_category = {
+          key: productCategory.category_id,
+          label: category.name,
+        };
+      }
+
+      // if (!category) {
+      //   ctx.throw(404, 'not found this category');
+      //   return;
+      // }
+      
+    }
+
+    let advertisers_obj = {};
+
+    if (!!product.customer) {
+      const customer = await model.Customer.findOne({where: { id: product.customer }});
+      // if (!customer) {
+      //   ctx.throw(404, 'not found this customer');
+      //   return;
+      // }
+
+      if (customer) {
+        advertisers_obj = {
+          key: product.customer,
+          label: customer.name,
+        };
+      }
+      
+    }
+
+    const {
+      is_hot,
+      is_in_shop,
+      is_shelf,
+      is_show,
+      ...productRest
+    } = product.toJSON()
+
+    
+    const productView: createProductAttribute = {
+      product_category,
+      advertisers_obj,
+      is_hot: !!is_hot,
+      is_in_shop: !!is_in_shop,
+      is_shelf: !!is_shelf,
+      is_show: !!is_show,
+      ...productRest,
+    }
+    return {
+      product: productView,
     };
   }
+
 }

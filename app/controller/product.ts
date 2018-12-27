@@ -33,4 +33,30 @@ export default class ProductController extends Controller {
       reply,
     };
   }
+
+  async show() {
+    const { ctx, service } = this;
+
+    const { id } = ctx.params;
+    const reply = await service.product.details(id);
+// console.log(reply);
+    ctx.body = reply;
+    // this.ctx.body = reply;
+  }
+
+  async onShelf() {
+    const { ctx, service } = this;
+    const { id } = ctx.params;
+    const reply = await service.product.onShelf(id);
+
+    ctx.response.body = reply;
+  }
+
+  async disableShelf() {
+    const { ctx, service } = this;
+    const { id } = ctx.params;
+    const reply = await service.product.disableShelf(id);
+
+    ctx.response.body = reply;
+  }
 }

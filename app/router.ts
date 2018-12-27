@@ -34,4 +34,6 @@ export default (app: Application) => {
   app.router.resources('product_configs', '/product_configs', app.controller.productConfig);
   app.router.resources('product', '/products', app.controller.product);
   app.router.get('/categories/search', app.controller.category.search);
+  app.router.put('/products/shelf/:id/on', app.controller.product.onShelf);
+  app.router.put('/products/shelf/:id/disable', app.controller.product.disableShelf);
 };
