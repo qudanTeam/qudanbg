@@ -12,6 +12,106 @@ export default class User extends Service {
     this.model = ctx.model;
   }
 
+  async passAuthRealname(id: number) {
+    const foundUser = await this.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundUser) {
+      this.ctx.throw(404, 'not found this user');
+      return;
+    }
+
+    await this.model.User.update({
+      status: 3,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    };
+  }
+
+  async refuseAuthRealname(id: number) {
+    const foundUser = await this.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundUser) {
+      this.ctx.throw(404, 'not found this user');
+      return;
+    }
+
+    await this.model.User.update({
+      status: 4,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    };
+  }
+
+  async passAuthFinance(id: number) {
+    const foundUser = await this.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundUser) {
+      this.ctx.throw(404, 'not found this user');
+      return;
+    }
+
+    await this.model.User.update({
+      finance_status: 3,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    };
+  }
+
+  async refuseAuthFinance(id: number) {
+    const foundUser = await this.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!foundUser) {
+      this.ctx.throw(404, 'not found this user');
+      return;
+    }
+
+    await this.model.User.update({
+      finance_status: 4,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    };
+  }
+
   async searchUser(search: string) {
     const users = await this.model.User.findAll({
       where: {

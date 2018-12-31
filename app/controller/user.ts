@@ -47,4 +47,37 @@ export default class UserController extends Controller {
 
     ctx.body = reply;
   }
+
+  async passRealnameAuth() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.passAuthRealname(id);
+
+    ctx.response.body = reply;
+  }
+
+  async refuseRealnameAuth() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.passAuthRealname(id);
+
+    ctx.response.body = reply;
+  }
+
+  async passFinanceAuth() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.passAuthFinance(id);
+
+    ctx.response.body = reply;
+  }
+
+  async refuseFinanceAuth() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.refuseAuthFinance(id);
+
+    ctx.response.body = reply;
+  }
+  
 }
