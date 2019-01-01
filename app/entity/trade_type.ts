@@ -93,7 +93,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     tx_alipay_no: {
       type: DataTypes.STRING(255),
       allowNull: true
-    }
+    },
+    remark: {
+      type: DataTypes.STRING(1000),
+      allowNull: true,      
+    },
   }, {
     tableName: 'trade_type'
   });

@@ -17,6 +17,7 @@ import ExportProduct from '../../../app/service/Product';
 import ExportProductConfig from '../../../app/service/ProductConfig';
 import ExportShareManager from '../../../app/service/ShareManager';
 import ExportTest from '../../../app/service/Test';
+import ExportTradeType from '../../../app/service/TradeType';
 import ExportUser from '../../../app/service/User';
 import ExportVipConfig from '../../../app/service/VipConfig';
 
@@ -37,6 +38,7 @@ declare module 'egg' {
     productConfig: ExportProductConfig;
     shareManager: ExportShareManager;
     test: ExportTest;
+    tradeType: ExportTradeType;
     user: ExportUser;
     vipConfig: ExportVipConfig;
   }

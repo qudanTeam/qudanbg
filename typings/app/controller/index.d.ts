@@ -11,6 +11,7 @@ import ExportBanner from '../../../app/controller/banner';
 import ExportCategory from '../../../app/controller/category';
 import ExportCustomer from '../../../app/controller/customer';
 import ExportFile from '../../../app/controller/file';
+import ExportFinancial from '../../../app/controller/financial';
 import ExportHome from '../../../app/controller/home';
 import ExportMessage from '../../../app/controller/message';
 import ExportOrder from '../../../app/controller/order';
@@ -31,6 +32,7 @@ declare module 'egg' {
     category: ExportCategory;
     customer: ExportCustomer;
     file: ExportFile;
+    financial: ExportFinancial;
     home: ExportHome;
     message: ExportMessage;
     order: ExportOrder;

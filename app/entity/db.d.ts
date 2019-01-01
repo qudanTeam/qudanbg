@@ -502,6 +502,7 @@ export interface trade_typeAttribute {
   reject_reason?:string;
   tx_name?:string;
   tx_alipay_no?:string;
+  remark?:string;
 }
 export interface trade_typeInstance extends Sequelize.Instance<trade_typeAttribute>, trade_typeAttribute { }
 export interface trade_typeModel extends Sequelize.Model<trade_typeInstance, trade_typeAttribute> { }
