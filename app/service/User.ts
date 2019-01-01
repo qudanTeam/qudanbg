@@ -166,6 +166,10 @@ export default class User extends Service {
       sql += ` AND user.username LIKE '%${filter.username}%'`;
     }
 
+    if (filter.realname) {
+      sql += ` AND user.realname LIKE '%${filter.realname}%'`;
+    }
+
     const totals = await this.model.query(`
     SELECT count(*) c FROM (${sql}) AS temp
     `, { type: this.model.QueryTypes.SELECT });
