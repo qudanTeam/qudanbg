@@ -78,7 +78,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     allow_rate: {
       type: DataTypes.DECIMAL,
-      allowNull: true
+      allowNull: false
     },
     apply_num: {
       type: DataTypes.INTEGER(10),
@@ -94,7 +94,8 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     day_rate: {
       type: DataTypes.DECIMAL,
-      allowNull: true
+      allowNull: false,
+      defaultValue: '0.00'
     },
     month_rate: {
       type: DataTypes.DECIMAL,
@@ -121,7 +122,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     c_limit: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.INTEGER(100),
       allowNull: true
     },
     a_level_reward: {
@@ -150,7 +151,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     salary_desc: {
       type: DataTypes.STRING(500),
-      allowNull: true
+      allowNull: false
     },
     month_salary_desc: {
       type: DataTypes.STRING(500),
@@ -190,7 +191,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     how_settle: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     expire_begin: {
       type: DataTypes.INTEGER(10),
@@ -226,7 +227,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     special_txt: {
       type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: false
     },
     unit: {
       type: DataTypes.STRING(255),
@@ -236,6 +237,14 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    product_profit_price: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    product_link: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   }, {
     tableName: 'product'
   });

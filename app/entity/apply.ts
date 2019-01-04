@@ -70,6 +70,18 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     apply_id_code: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    official_limit: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    official_expire: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    official_time: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     tableName: 'apply'

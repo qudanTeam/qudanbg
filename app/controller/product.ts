@@ -59,4 +59,38 @@ export default class ProductController extends Controller {
 
     ctx.response.body = reply;
   }
+
+  /**
+   * 搜索产品绑定链接
+   */
+  async searchLinks() {
+    const { ctx } = this;
+    const { model } = ctx;
+    // const { model } = ctx;
+    const {
+      search = '',
+      product_type = 1,
+    } = ctx.request.query;
+
+    const condition: any = {};
+    
+    if (search) {
+      condition.product_name = {
+        [model.Op.like]: `%${search}%`,
+      }
+    }
+
+    if (product_type) {
+      condition.product_type = product_type;
+    }
+    
+    const links = await model.ProductLinks.findAll({
+      where: condition,
+    });
+
+    ctx.response.body = {
+      links,
+    };
+    
+  }
 }

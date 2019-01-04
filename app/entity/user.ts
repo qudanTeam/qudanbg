@@ -79,7 +79,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     recommend_invite_id: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.INTEGER(10),
       allowNull: true
     },
     vip_name: {

@@ -22,25 +22,25 @@ interface createProductAttribute {
   bg_category?:string;
   amount_line?:number;
   progress_query_img?:string;
-  allow_rate?:number;
+  allow_rate:number;
   apply_num?:number;
   apply_condition?:string;
   apply_tp_img?:string;
-  day_rate?:number;
+  day_rate:number;
   month_rate?:number;
   a_begin?:number;
   a_limit?:number;
   b_begin?:number;
   b_limit?:number;
   c_start?:number;
-  c_limit?:string;
+  c_limit?:number;
   a_level_reward?:number;
   b_level_reward?:number;
   c_level_reward?:number;
   base_salary?:number;
   month_salary?:string;
   salary?:string;
-  salary_desc?:string;
+  salary_desc:string;
   month_salary_desc?:string;
   second_summary?:string;
   third_summary?:string;
@@ -50,7 +50,7 @@ interface createProductAttribute {
   burundian?:string;
   settlement_type?:number;
   expire_unit?:string;
-  how_settle?:string;
+  how_settle:string;
   expire_begin?:number;
   expire_end?:number;
   commission_standard?:string;
@@ -59,9 +59,11 @@ interface createProductAttribute {
   base_right?:string;
   preferential?:string;
   special_tag?:string;
-  special_txt?:string;
+  special_txt:string;
   unit?:string;
   jl_unite?:string;
+  product_link_obj?:any;
+  product_link?:string;
 }
 
 
@@ -129,6 +131,7 @@ export default class Product extends Service {
     const { 
       product_category, 
       advertisers_obj, 
+      product_link_obj,
       is_hot,
       is_in_shop,
       is_shelf,
@@ -141,6 +144,10 @@ export default class Product extends Service {
     // rest.customer = adv
     if (advertisers_obj) {
       rest.customer = advertisers_obj.key;
+    }
+
+    if (product_link_obj) {
+      rest.product_link = product_link_obj.key;
     }
 
     const created = await this.model.Product.create(
@@ -176,6 +183,7 @@ export default class Product extends Service {
     const { 
       product_category,
       advertisers_obj,
+      product_link_obj,
       is_hot,
       is_in_shop,
       is_shelf,
@@ -185,6 +193,10 @@ export default class Product extends Service {
 
     if (advertisers_obj) {
       rest.customer = advertisers_obj.key;
+    }
+
+    if (product_link_obj) {
+      rest.product_link = product_link_obj.key;
     }
 
     await this.model.Product.update({
@@ -309,6 +321,18 @@ export default class Product extends Service {
       
     }
 
+    let product_link_obj = {};
+
+    if (!!product.product_link) {
+      const link = await model.ProductLinks.findOne({where: { link: product.product_link}});
+      if (link) {
+        product_link_obj = {
+          key: product.product_link,
+          label: `${link.category_name}/${link.product_name}`,
+        };
+      }
+    }
+
     const {
       is_hot,
       is_in_shop,
@@ -321,6 +345,7 @@ export default class Product extends Service {
     const productView: createProductAttribute = {
       product_category,
       advertisers_obj,
+      product_link_obj,
       is_hot: !!is_hot,
       is_in_shop: !!is_in_shop,
       is_shelf: !!is_shelf,

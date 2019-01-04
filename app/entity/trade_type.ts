@@ -42,7 +42,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     indirect_type: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.INTEGER(255),
       allowNull: true
     },
     send_status: {
@@ -94,10 +94,18 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING(255),
       allowNull: true
     },
+    agent_level: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true
+    },
+    agent_rate: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
     remark: {
       type: DataTypes.STRING(1000),
-      allowNull: true,      
-    },
+      allowNull: true
+    }
   }, {
     tableName: 'trade_type'
   });

@@ -2,27 +2,6 @@
 import * as Sequelize from 'sequelize';
 
 
-// table: admin
-export interface adminAttribute {
-  id:number;
-  username?:string;
-  password?:string;
-  enabled?:number;
-  create_at?:Date;
-  update_at?:Date;
-}
-export interface adminInstance extends Sequelize.Instance<adminAttribute>, adminAttribute { }
-export interface adminModel extends Sequelize.Model<adminInstance, adminAttribute> { }
-
-// table: admin_menu_permission
-export interface admin_menu_permissionAttribute {
-  id:number;
-  admin_id?:number;
-  permission_id?:number;
-}
-export interface admin_menu_permissionInstance extends Sequelize.Instance<admin_menu_permissionAttribute>, admin_menu_permissionAttribute { }
-export interface admin_menu_permissionModel extends Sequelize.Model<admin_menu_permissionInstance, admin_menu_permissionAttribute> { }
-
 // table: agent_config
 export interface agent_configAttribute {
   id:number;
@@ -48,6 +27,27 @@ export interface agent_relationAttribute {
 }
 export interface agent_relationInstance extends Sequelize.Instance<agent_relationAttribute>, agent_relationAttribute { }
 export interface agent_relationModel extends Sequelize.Model<agent_relationInstance, agent_relationAttribute> { }
+
+// table: admin
+export interface adminAttribute {
+  id:number;
+  username?:string;
+  password?:string;
+  enabled?:number;
+  create_at?:Date;
+  update_at?:Date;
+}
+export interface adminInstance extends Sequelize.Instance<adminAttribute>, adminAttribute { }
+export interface adminModel extends Sequelize.Model<adminInstance, adminAttribute> { }
+
+// table: admin_menu_permission
+export interface admin_menu_permissionAttribute {
+  id:number;
+  admin_id?:number;
+  permission_id?:number;
+}
+export interface admin_menu_permissionInstance extends Sequelize.Instance<admin_menu_permissionAttribute>, admin_menu_permissionAttribute { }
+export interface admin_menu_permissionModel extends Sequelize.Model<admin_menu_permissionInstance, admin_menu_permissionAttribute> { }
 
 // table: agent
 export interface agentAttribute {
@@ -90,21 +90,6 @@ export interface agents_viewAttribute {
 export interface agents_viewInstance extends Sequelize.Instance<agents_viewAttribute>, agents_viewAttribute { }
 export interface agents_viewModel extends Sequelize.Model<agents_viewInstance, agents_viewAttribute> { }
 
-// table: banner
-export interface bannerAttribute {
-  id:number;
-  title?:string;
-  link?:string;
-  img?:string;
-  sort_val?:number;
-  is_show?:number;
-  create_time?:Date;
-  modify_tiime?:Date;
-  position?:number;
-}
-export interface bannerInstance extends Sequelize.Instance<bannerAttribute>, bannerAttribute { }
-export interface bannerModel extends Sequelize.Model<bannerInstance, bannerAttribute> { }
-
 // table: apply
 export interface applyAttribute {
   id:number;
@@ -122,9 +107,27 @@ export interface applyAttribute {
   salary_status?:number;
   invite_code?:string;
   apply_id_code?:string;
+  official_limit?:number;
+  official_expire?:string;
+  official_time?:Date;
 }
 export interface applyInstance extends Sequelize.Instance<applyAttribute>, applyAttribute { }
 export interface applyModel extends Sequelize.Model<applyInstance, applyAttribute> { }
+
+// table: banner
+export interface bannerAttribute {
+  id:number;
+  title?:string;
+  link?:string;
+  img?:string;
+  sort_val?:number;
+  is_show?:number;
+  create_time?:Date;
+  modify_tiime?:Date;
+  position?:number;
+}
+export interface bannerInstance extends Sequelize.Instance<bannerAttribute>, bannerAttribute { }
+export interface bannerModel extends Sequelize.Model<bannerInstance, bannerAttribute> { }
 
 // table: category
 export interface categoryAttribute {
@@ -181,9 +184,9 @@ export interface messageAttribute {
   msg_content?:string;
   msg_link?:string;
   create_time?:Date;
-  modify_time?:Date;
   user_id?:number;
   is_user_delete?:number;
+  modify_time?:Date;
 }
 export interface messageInstance extends Sequelize.Instance<messageAttribute>, messageAttribute { }
 export interface messageModel extends Sequelize.Model<messageInstance, messageAttribute> { }
@@ -229,6 +232,85 @@ export interface order_viewAttribute {
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }
 
+// table: pay_order
+export interface pay_orderAttribute {
+  sid:number;
+  order_id?:string;
+  trade_type?:string;
+  order_status?:string;
+  type?:string;
+  user_id?:string;
+  total_fee?:string;
+  prepay_id?:string;
+  trade_time?:Date;
+}
+export interface pay_orderInstance extends Sequelize.Instance<pay_orderAttribute>, pay_orderAttribute { }
+export interface pay_orderModel extends Sequelize.Model<pay_orderInstance, pay_orderAttribute> { }
+
+// table: product
+export interface productAttribute {
+  id:number;
+  product_name?:string;
+  logo?:string;
+  product_type?:number;
+  is_hot?:number;
+  is_show?:number;
+  customer?:number;
+  is_in_shop?:number;
+  is_shelf?:number;
+  create_time?:Date;
+  modify_time?:Date;
+  commission?:number;
+  sort_val?:number;
+  bg_category?:string;
+  amount_line?:number;
+  progress_query_img?:string;
+  allow_rate:number;
+  apply_num?:number;
+  apply_condition?:string;
+  apply_tp_img?:string;
+  day_rate:number;
+  month_rate?:number;
+  a_begin?:number;
+  a_limit?:number;
+  b_begin?:number;
+  b_limit?:number;
+  c_start?:number;
+  c_limit?:number;
+  a_level_reward?:number;
+  b_level_reward?:number;
+  c_level_reward?:number;
+  base_salary?:number;
+  month_salary?:string;
+  salary?:string;
+  salary_desc:string;
+  month_salary_desc?:string;
+  second_summary?:string;
+  third_summary?:string;
+  detail_header_img?:string;
+  card_long_img?:string;
+  product_show_img?:string;
+  burundian?:string;
+  settlement_type?:number;
+  expire_unit?:string;
+  how_settle:string;
+  expire_begin?:number;
+  expire_end?:number;
+  commission_standard?:string;
+  share_title?:string;
+  card_progress_img?:string;
+  base_right?:string;
+  preferential?:string;
+  special_tag?:string;
+  special_txt:string;
+  unit?:string;
+  jl_unite?:string;
+  product_profit_price?:number;
+  product_link?:string;
+}
+export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
+export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }
+
 // table: product_category_relation
 export interface product_category_relationAttribute {
   id:number;
@@ -239,6 +321,29 @@ export interface product_category_relationAttribute {
 }
 export interface product_category_relationInstance extends Sequelize.Instance<product_category_relationAttribute>, product_category_relationAttribute { }
 export interface product_category_relationModel extends Sequelize.Model<product_category_relationInstance, product_category_relationAttribute> { }
+
+// table: product_config
+export interface product_configAttribute {
+  product_id?:number;
+  title?:string;
+  content?:string;
+  create_time?:Date;
+  modify_time?:Date;
+  id:number;
+}
+export interface product_configInstance extends Sequelize.Instance<product_configAttribute>, product_configAttribute { }
+export interface product_configModel extends Sequelize.Model<product_configInstance, product_configAttribute> { }
+
+// table: product_links
+export interface product_linksAttribute {
+  id:number;
+  product_name?:string;
+  link?:string;
+  category_name?:string;
+  product_type?:number;
+}
+export interface product_linksInstance extends Sequelize.Instance<product_linksAttribute>, product_linksAttribute { }
+export interface product_linksModel extends Sequelize.Model<product_linksInstance, product_linksAttribute> { }
 
 // table: salary
 export interface salaryAttribute {
@@ -271,80 +376,6 @@ export interface salaryAttribute {
 export interface salaryInstance extends Sequelize.Instance<salaryAttribute>, salaryAttribute { }
 export interface salaryModel extends Sequelize.Model<salaryInstance, salaryAttribute> { }
 
-// table: product_config
-export interface product_configAttribute {
-  product_id?:number;
-  title?:string;
-  content?:string;
-  create_time?:Date;
-  modify_time?:Date;
-  id:number;
-}
-export interface product_configInstance extends Sequelize.Instance<product_configAttribute>, product_configAttribute { }
-export interface product_configModel extends Sequelize.Model<product_configInstance, product_configAttribute> { }
-
-// table: product
-export interface productAttribute {
-  id:number;
-  product_name?:string;
-  logo?:string;
-  product_type?:number;
-  is_hot?:number;
-  is_show?:number;
-  customer?:number;
-  is_in_shop?:number;
-  is_shelf?:number;
-  create_time?:Date;
-  modify_time?:Date;
-  commission?:number;
-  sort_val?:number;
-  bg_category?:string;
-  amount_line?:number;
-  progress_query_img?:string;
-  allow_rate?:number;
-  apply_num?:number;
-  apply_condition?:string;
-  apply_tp_img?:string;
-  day_rate?:number;
-  month_rate?:number;
-  a_begin?:number;
-  a_limit?:number;
-  b_begin?:number;
-  b_limit?:number;
-  c_start?:number;
-  c_limit?:string;
-  a_level_reward?:number;
-  b_level_reward?:number;
-  c_level_reward?:number;
-  base_salary?:number;
-  month_salary?:string;
-  salary?:string;
-  salary_desc?:string;
-  month_salary_desc?:string;
-  second_summary?:string;
-  third_summary?:string;
-  detail_header_img?:string;
-  card_long_img?:string;
-  product_show_img?:string;
-  burundian?:string;
-  settlement_type?:number;
-  expire_unit?:string;
-  how_settle?:string;
-  expire_begin?:number;
-  expire_end?:number;
-  commission_standard?:string;
-  share_title?:string;
-  card_progress_img?:string;
-  base_right?:string;
-  preferential?:string;
-  special_tag?:string;
-  special_txt?:string;
-  unit?:string;
-  jl_unite?:string;
-}
-export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
-export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }
-
 // table: share_manager
 export interface share_managerAttribute {
   id:number;
@@ -372,6 +403,21 @@ export interface sms_send_recordAttribute {
 export interface sms_send_recordInstance extends Sequelize.Instance<sms_send_recordAttribute>, sms_send_recordAttribute { }
 export interface sms_send_recordModel extends Sequelize.Model<sms_send_recordInstance, sms_send_recordAttribute> { }
 
+// table: sys_log
+export interface sys_logAttribute {
+  id:number;
+  user_id?:number;
+  username?:string;
+  operation?:string;
+  time?:number;
+  method?:string;
+  params?:string;
+  ip?:string;
+  gmt_create?:Date;
+}
+export interface sys_logInstance extends Sequelize.Instance<sys_logAttribute>, sys_logAttribute { }
+export interface sys_logModel extends Sequelize.Model<sys_logInstance, sys_logAttribute> { }
+
 // table: sys_menu
 export interface sys_menuAttribute {
   menu_id:number;
@@ -388,21 +434,6 @@ export interface sys_menuAttribute {
 export interface sys_menuInstance extends Sequelize.Instance<sys_menuAttribute>, sys_menuAttribute { }
 export interface sys_menuModel extends Sequelize.Model<sys_menuInstance, sys_menuAttribute> { }
 
-// table: sys_log
-export interface sys_logAttribute {
-  id:number;
-  user_id?:number;
-  username?:string;
-  operation?:string;
-  time?:number;
-  method?:string;
-  params?:string;
-  ip?:string;
-  gmt_create?:Date;
-}
-export interface sys_logInstance extends Sequelize.Instance<sys_logAttribute>, sys_logAttribute { }
-export interface sys_logModel extends Sequelize.Model<sys_logInstance, sys_logAttribute> { }
-
 // table: sys_role
 export interface sys_roleAttribute {
   role_id:number;
@@ -415,6 +446,45 @@ export interface sys_roleAttribute {
 }
 export interface sys_roleInstance extends Sequelize.Instance<sys_roleAttribute>, sys_roleAttribute { }
 export interface sys_roleModel extends Sequelize.Model<sys_roleInstance, sys_roleAttribute> { }
+
+// table: sys_user_role
+export interface sys_user_roleAttribute {
+  id:number;
+  user_id?:number;
+  role_id?:number;
+}
+export interface sys_user_roleInstance extends Sequelize.Instance<sys_user_roleAttribute>, sys_user_roleAttribute { }
+export interface sys_user_roleModel extends Sequelize.Model<sys_user_roleInstance, sys_user_roleAttribute> { }
+
+// table: trade_type
+export interface trade_typeAttribute {
+  id:number;
+  trade_type?:number;
+  apply_id?:number;
+  price?:number;
+  create_time?:Date;
+  modify_time?:Date;
+  status?:number;
+  account?:number;
+  indirect_type?:number;
+  send_status?:number;
+  audit_time?:Date;
+  send_time?:Date;
+  vip_rate?:number;
+  vip_level?:number;
+  base_price?:number;
+  relation_user_id?:number;
+  user_id?:number;
+  vip_price?:number;
+  reject_reason?:string;
+  tx_name?:string;
+  tx_alipay_no?:string;
+  agent_level?:number;
+  agent_rate?:number;
+  remark?:string;
+}
+export interface trade_typeInstance extends Sequelize.Instance<trade_typeAttribute>, trade_typeAttribute { }
+export interface trade_typeModel extends Sequelize.Model<trade_typeInstance, trade_typeAttribute> { }
 
 // table: sys_role_menu
 export interface sys_role_menuAttribute {
@@ -470,43 +540,6 @@ export interface sys_userAttribute {
 export interface sys_userInstance extends Sequelize.Instance<sys_userAttribute>, sys_userAttribute { }
 export interface sys_userModel extends Sequelize.Model<sys_userInstance, sys_userAttribute> { }
 
-// table: sys_user_role
-export interface sys_user_roleAttribute {
-  id:number;
-  user_id?:number;
-  role_id?:number;
-}
-export interface sys_user_roleInstance extends Sequelize.Instance<sys_user_roleAttribute>, sys_user_roleAttribute { }
-export interface sys_user_roleModel extends Sequelize.Model<sys_user_roleInstance, sys_user_roleAttribute> { }
-
-// table: trade_type
-export interface trade_typeAttribute {
-  id:number;
-  trade_type?:number;
-  apply_id?:number;
-  price?:number;
-  create_time?:Date;
-  modify_time?:Date;
-  status?:number;
-  account?:number;
-  indirect_type?:string;
-  send_status?:number;
-  audit_time?:Date;
-  send_time?:Date;
-  vip_rate?:number;
-  vip_level?:number;
-  base_price?:number;
-  relation_user_id?:number;
-  user_id?:number;
-  vip_price?:number;
-  reject_reason?:string;
-  tx_name?:string;
-  tx_alipay_no?:string;
-  remark?:string;
-}
-export interface trade_typeInstance extends Sequelize.Instance<trade_typeAttribute>, trade_typeAttribute { }
-export interface trade_typeModel extends Sequelize.Model<trade_typeInstance, trade_typeAttribute> { }
-
 // table: user
 export interface userAttribute {
   id:number;
@@ -535,39 +568,6 @@ export interface userAttribute {
 export interface userInstance extends Sequelize.Instance<userAttribute>, userAttribute { }
 export interface userModel extends Sequelize.Model<userInstance, userAttribute> { }
 
-// table: vip_config
-export interface vip_configAttribute {
-  id:number;
-  add_rate?:number;
-  vip_price?:number;
-  start_time?:Date;
-  service_days?:number;
-  over_time?:Date;
-  vip_logo?:string;
-  create_time?:Date;
-  modify_time?:Date;
-  isenable?:number;
-  version?:number;
-  vip_name?:string;
-  vip_level?:number;
-  promotion_price?:number;
-}
-export interface vip_configInstance extends Sequelize.Instance<vip_configAttribute>, vip_configAttribute { }
-export interface vip_configModel extends Sequelize.Model<vip_configInstance, vip_configAttribute> { }
-
-// table: user_share_qr_code
-export interface user_share_qr_codeAttribute {
-  id:number;
-  share_type?:number;
-  img_url?:string;
-  pid?:number;
-  create_time?:Date;
-  user_id?:number;
-  address_url?:string;
-}
-export interface user_share_qr_codeInstance extends Sequelize.Instance<user_share_qr_codeAttribute>, user_share_qr_codeAttribute { }
-export interface user_share_qr_codeModel extends Sequelize.Model<user_share_qr_codeInstance, user_share_qr_codeAttribute> { }
-
 // table: user_account
 export interface user_accountAttribute {
   id:number;
@@ -591,6 +591,39 @@ export interface user_shareAttribute {
 }
 export interface user_shareInstance extends Sequelize.Instance<user_shareAttribute>, user_shareAttribute { }
 export interface user_shareModel extends Sequelize.Model<user_shareInstance, user_shareAttribute> { }
+
+// table: user_share_qr_code
+export interface user_share_qr_codeAttribute {
+  id:number;
+  share_type?:number;
+  img_url?:string;
+  pid?:number;
+  create_time?:Date;
+  user_id?:number;
+  address_url?:string;
+}
+export interface user_share_qr_codeInstance extends Sequelize.Instance<user_share_qr_codeAttribute>, user_share_qr_codeAttribute { }
+export interface user_share_qr_codeModel extends Sequelize.Model<user_share_qr_codeInstance, user_share_qr_codeAttribute> { }
+
+// table: vip_config
+export interface vip_configAttribute {
+  id:number;
+  add_rate?:number;
+  vip_price?:number;
+  start_time?:Date;
+  service_days?:number;
+  over_time?:Date;
+  vip_logo?:string;
+  create_time?:Date;
+  modify_time?:Date;
+  isenable?:number;
+  version?:number;
+  vip_name?:string;
+  vip_level?:number;
+  promotion_price?:number;
+}
+export interface vip_configInstance extends Sequelize.Instance<vip_configAttribute>, vip_configAttribute { }
+export interface vip_configModel extends Sequelize.Model<vip_configInstance, vip_configAttribute> { }
 
 // table: vip_record
 export interface vip_recordAttribute {
@@ -620,23 +653,6 @@ export interface vip_record_enabled_viewAttribute {
 export interface vip_record_enabled_viewInstance extends Sequelize.Instance<vip_record_enabled_viewAttribute>, vip_record_enabled_viewAttribute { }
 export interface vip_record_enabled_viewModel extends Sequelize.Model<vip_record_enabled_viewInstance, vip_record_enabled_viewAttribute> { }
 
-// table: weixin_scene_record
-export interface weixin_scene_recordAttribute {
-  id:number;
-  type?:string;
-  params?:string;
-  create_time?:Date;
-  expire_time?:Date;
-  expire_seconds?:number;
-  ticket?:string;
-  scene_id?:number;
-  qr_type?:number;
-  apply_user_id?:number;
-  qr_address?:string;
-}
-export interface weixin_scene_recordInstance extends Sequelize.Instance<weixin_scene_recordAttribute>, weixin_scene_recordAttribute { }
-export interface weixin_scene_recordModel extends Sequelize.Model<weixin_scene_recordInstance, weixin_scene_recordAttribute> { }
-
 // table: weixin_binding
 export interface weixin_bindingAttribute {
   id:number;
@@ -662,6 +678,23 @@ export interface weixin_scene_scan_logAttribute {
 }
 export interface weixin_scene_scan_logInstance extends Sequelize.Instance<weixin_scene_scan_logAttribute>, weixin_scene_scan_logAttribute { }
 export interface weixin_scene_scan_logModel extends Sequelize.Model<weixin_scene_scan_logInstance, weixin_scene_scan_logAttribute> { }
+
+// table: weixin_scene_record
+export interface weixin_scene_recordAttribute {
+  id:number;
+  type?:string;
+  params?:string;
+  create_time?:Date;
+  expire_time?:Date;
+  expire_seconds?:number;
+  ticket?:string;
+  scene_id?:number;
+  qr_type?:number;
+  apply_user_id?:number;
+  qr_address?:string;
+}
+export interface weixin_scene_recordInstance extends Sequelize.Instance<weixin_scene_recordAttribute>, weixin_scene_recordAttribute { }
+export interface weixin_scene_recordModel extends Sequelize.Model<weixin_scene_recordInstance, weixin_scene_recordAttribute> { }
 
 // table: weixin_user_temp
 export interface weixin_user_tempAttribute {

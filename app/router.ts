@@ -38,6 +38,7 @@ export default (app: Application) => {
   app.router.resources('product_configs', '/product_configs', app.controller.productConfig);
   app.router.resources('product', '/products', app.controller.product);
   app.router.get('/categories/search', app.controller.category.search);
+  app.router.get('/products/links/search', app.controller.product.searchLinks);
   app.router.put('/products/shelf/:id/on', app.controller.product.onShelf);
   app.router.put('/products/shelf/:id/disable', app.controller.product.disableShelf);
   app.router.resources('financials', '/financials', app.controller.financial);
@@ -45,4 +46,5 @@ export default (app: Application) => {
   app.router.get('/financials/monthReport', app.controller.financial.monthReport);
   app.router.put('/financials/:id/passOneSalary', app.controller.financial.passOneSalary);
   app.router.put('/financials/:id/refuseOneSalary', app.controller.financial.refuseOneSalary);
+  
 };
