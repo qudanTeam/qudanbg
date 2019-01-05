@@ -146,9 +146,9 @@ export default class Product extends Service {
       rest.customer = advertisers_obj.key;
     }
 
-    if (product_link_obj) {
-      rest.product_link = product_link_obj.key;
-    }
+    // if (product_link_obj) {
+    //   rest.product_link = product_link_obj.key;
+    // }
 
     const created = await this.model.Product.create(
       {
@@ -195,9 +195,9 @@ export default class Product extends Service {
       rest.customer = advertisers_obj.key;
     }
 
-    if (product_link_obj) {
-      rest.product_link = product_link_obj.key;
-    }
+    // if (product_link_obj) {
+    //   rest.product_link = product_link_obj.key;
+    // }
 
     await this.model.Product.update({
       is_hot: is_hot ? 1 : 0,
@@ -321,17 +321,17 @@ export default class Product extends Service {
       
     }
 
-    let product_link_obj = {};
+    // let product_link_obj = {};
 
-    if (!!product.product_link) {
-      const link = await model.ProductLinks.findOne({where: { link: product.product_link}});
-      if (link) {
-        product_link_obj = {
-          key: product.product_link,
-          label: `${link.category_name}/${link.product_name}`,
-        };
-      }
-    }
+    // if (!!product.product_link) {
+    //   const link = await model.ProductLinks.findOne({where: { link: product.product_link}});
+    //   if (link) {
+    //     product_link_obj = {
+    //       key: product.product_link,
+    //       label: `${link.category_name}/${link.product_name}`,
+    //     };
+    //   }
+    // }
 
     const {
       is_hot,
@@ -345,7 +345,7 @@ export default class Product extends Service {
     const productView: createProductAttribute = {
       product_category,
       advertisers_obj,
-      product_link_obj,
+      // product_link_obj,
       is_hot: !!is_hot,
       is_in_shop: !!is_in_shop,
       is_shelf: !!is_shelf,
