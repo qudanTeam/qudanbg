@@ -244,7 +244,15 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     product_link: {
       type: DataTypes.TEXT,
       allowNull: true
-    }
+    },
+    product_poster: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    loan_limit: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   }, {
     tableName: 'product'
   });

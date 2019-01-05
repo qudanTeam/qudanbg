@@ -307,6 +307,8 @@ export interface productAttribute {
   jl_unite?:string;
   product_profit_price?:number;
   product_link?:string;
+  product_poster?:string;
+  loan_limit?:number;
 }
 export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
 export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }

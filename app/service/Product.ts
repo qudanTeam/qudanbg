@@ -64,6 +64,8 @@ interface createProductAttribute {
   jl_unite?:string;
   product_link_obj?:any;
   product_link?:string;
+  product_poster?:string;
+  loan_limit?:number;
 }
 
 
@@ -195,6 +197,19 @@ export default class Product extends Service {
       rest.customer = advertisers_obj.key;
     }
 
+    const foundProduct = await this.model.Product.findOne({
+      where: {
+        id,
+      }
+    });
+
+    if (!foundProduct) {
+      this.ctx.throw(404, 'not found this product');
+      return
+    }
+
+    // const { is_hot, } = foundProduct;
+
     // if (product_link_obj) {
     //   rest.product_link = product_link_obj.key;
     // }
@@ -202,7 +217,7 @@ export default class Product extends Service {
     await this.model.Product.update({
       is_hot: is_hot ? 1 : 0,
       is_in_shop: is_in_shop ? 1 : 0,
-      is_shelf: is_shelf ? 1 : 0,
+      is_shelf: foundProduct.is_shelf,
       is_show: is_show ? 1 : 0,
       ...rest
     }, {
