@@ -150,6 +150,10 @@ export default class User extends Service {
       sql += ` AND user.id LIKE '%${filter.id}%'`;
     }
 
+    if (filter.invite_code) {
+      sql += ` AND user.invite_code LIKE '%${filter.invite_code}%'`;
+    }
+
     if (filter.register_mobile) {
       sql += ` AND user.register_mobile = ${filter.register_mobile}`;
     }
@@ -244,5 +248,63 @@ export default class User extends Service {
     return {
       agents,
     };
+  }
+
+  async findChildReward(id: number, filters: any) {
+
+    const { offset, limit } = this.ctx.helper.parsedPageFromParams(filters);
+
+    let sql = `
+    SELECT agv.parent_agent_id, agv.parent_user_id, agv.id a_agent_id, agv.user_id user_id, u.* 
+    FROM (
+      SELECT * FROM agents_view av WHERE av.parent_user_id = :id
+      UNION 
+      SELECT agvt.* FROM agents_view agvt 
+      LEFT JOIN agents_view pag ON agvt.parent_agent_id = pag.id WHERE pag.parent_user_id = :id
+    ) AS agv 
+    LEFT JOIN user u ON u.id = agv.user_id WHERE 1=1
+    `;
+
+    const totals = await this.model.query(`
+    SELECT count(*) c FROM (${sql}) AS temp
+    `, { replacements: {id}, type: this.model.QueryTypes.SELECT });
+
+    sql += ' LIMIT :offset, :limit';
+
+    const list = await this.model.query(sql, {
+      replacements: { offset, limit, id },
+      type: this.model.QueryTypes.SELECT,
+    });
+
+    return {
+      list,
+      page: filters.page,
+      pageSize: filters.pageSize,
+      total: totals[0].c,
+    };
+  }
+
+  async updateUser(id: number, data: any) {
+    const foundUser = await this.model.User.findOne({
+      where: {
+        id,
+      }
+    });
+
+    if (!foundUser) {
+      this.ctx.throw(404, "not found this");
+      return;
+    }
+
+    // this.model.Product.update()
+    await this.model.User.update(data, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    }
   }
 }

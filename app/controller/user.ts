@@ -59,7 +59,7 @@ export default class UserController extends Controller {
   async refuseRealnameAuth() {
     const { ctx, service } = this;
     const id = ctx.params.id;
-    const reply = await service.user.passAuthRealname(id);
+    const reply = await service.user.refuseAuthRealname(id);
 
     ctx.response.body = reply;
   }
@@ -76,6 +76,21 @@ export default class UserController extends Controller {
     const { ctx, service } = this;
     const id = ctx.params.id;
     const reply = await service.user.refuseAuthFinance(id);
+
+    ctx.response.body = reply;
+  }
+
+  async queryChildUsers() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.findChildReward(id, ctx.request.query);
+    ctx.response.body = reply;
+  }
+
+  async update() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    const reply = await service.user.updateUser(id, ctx.request.body);
 
     ctx.response.body = reply;
   }

@@ -20,6 +20,12 @@ export default class Agent extends Service {
       };
     }
 
+    if (filters.invite_code) {
+      condition['invite_code'] = {
+        [this.model.Op.like]: `%${filters.invite_code}%`,
+      }
+    }
+
     if (filters.level && filters.level !== 'all') {
       condition['level'] = filters.level;
     }

@@ -9,13 +9,16 @@ export default (app: Application) => {
   app.router.put('/admins/permission', app.controller.admin.put_permission);
   app.router.put('/admins/password/:id', app.controller.admin.updatePassword);
   app.router.resources('admins', '/admins', app.controller.admin);
+  
   app.router.put('/users/:id/passRealnameAuth', app.controller.user.passRealnameAuth);
   app.router.put('/users/:id/refuseRealnameAuth', app.controller.user.refuseRealnameAuth);
   app.router.put('/users/:id/passFinanceAuth', app.controller.user.passFinanceAuth);
   app.router.put('/users/:id/refuseFinanceAuth', app.controller.user.refuseFinanceAuth);
   app.router.get('/users/search', app.controller.user.searchUser);
+  app.router.get('/users/:id/childs', app.controller.user.queryChildUsers);
   app.router.get('/users/:id/vipInfo', app.controller.user.showVipInfo);
   app.router.get('/users/:id/agentInfo', app.controller.user.showAgentInfo);
+  // app.router.put('/users/:id', app.controller.user.updateUser);
   app.router.resources('users', '/users', app.controller.user);
   app.router.resources('vipconfigs', '/vipconfigs', app.controller.vipConfigs);
   app.router.resources('banners', '/banners', app.controller.banner);
