@@ -85,7 +85,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     apply_condition: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     apply_tp_img: {

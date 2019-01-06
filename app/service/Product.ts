@@ -130,6 +130,10 @@ export default class Product extends Service {
     product.create_time = new Date();
     product.modify_time = new Date();
 
+    if (!product.salary_desc) {
+      product.salary_desc = '-';
+    }
+
     const { 
       product_category, 
       advertisers_obj, 
@@ -206,6 +210,10 @@ export default class Product extends Service {
     if (!foundProduct) {
       this.ctx.throw(404, 'not found this product');
       return
+    }
+
+    if (!rest.salary_desc) {
+      rest.salary_desc = '-';
     }
 
     // const { is_hot, } = foundProduct;
