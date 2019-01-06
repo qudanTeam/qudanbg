@@ -30,6 +30,10 @@ export default class Order extends Service {
       condition['user_id'] = filters.user_id;
     }
 
+    if (filters.invite_code) {
+      condition['invite_code'] = filters.invite_code;
+    }
+
     if (filters.status) {
       condition['status'] = filters.status
     }
