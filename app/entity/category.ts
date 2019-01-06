@@ -35,7 +35,23 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     get_link: {
       type: DataTypes.STRING(2000),
       allowNull: true
-    }
+    },
+    need_verify_code: {
+      type: DataTypes.INTEGER(2),
+      allowNull: true,
+    },
+    need_mobile_verify_code: {
+      type: DataTypes.INTEGER(2),
+      allowNull: true,
+    },
+    verify_code_link: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    mobile_verify_code_link: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
   }, {
     tableName: 'category'
   });

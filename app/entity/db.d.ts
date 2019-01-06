@@ -138,6 +138,10 @@ export interface categoryAttribute {
   category_type?:number;
   logo?:string;
   get_link?:string;
+  need_verify_code?:number;
+  need_mobile_verify_code?:number;
+  verify_code_link?:string;
+  mobile_verify_code_link?:string;
 }
 export interface categoryInstance extends Sequelize.Instance<categoryAttribute>, categoryAttribute { }
 export interface categoryModel extends Sequelize.Model<categoryInstance, categoryAttribute> { }
