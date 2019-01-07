@@ -46,6 +46,9 @@ export default class Order extends Service {
       offset,
       limit,
       where: condition,
+      order: [
+        ['modify_time', 'DESC'],
+      ]
     });
 
     const total = await this.model.OrderView.count({
@@ -61,15 +64,40 @@ export default class Order extends Service {
   }
 
   async passOne(id: number) {
+
+    const { ctx, config } = this;
+
     // await this.model
     await this.model.Apply.update({
       modify_time: new Date(),
       status: 2,
+      official_status: 2,
     }, {
       where: {
         id,
       }
     });
+
+    const resp = await ctx.curl(`${config.javaAPI}/settle/trigger?applyid=${id}`, {
+      dataType: 'json',
+    });
+
+    if (resp.status !== 200) {
+      ctx.throw(400, '远端接口服务出现问题，请稍后再试');
+      // await this.model
+      await this.model.Apply.update({
+        modify_time: new Date(),
+        status: 1,
+        official_status: 1,
+      }, {
+        where: {
+          id,
+        }
+      });
+      return;
+    }
+
+    
 
     return {
       id,

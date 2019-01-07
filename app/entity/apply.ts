@@ -82,7 +82,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     official_time: {
       type: DataTypes.DATE,
       allowNull: true
-    }
+    },
+    load_money: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+    },
   }, {
     tableName: 'apply'
   });

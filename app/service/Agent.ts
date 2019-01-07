@@ -34,6 +34,9 @@ export default class Agent extends Service {
       offset,
       limit,
       where: condition,
+      order: [
+        ['beign_agent_time', 'DESC'],
+      ],
     });
 
     const total = await this.model.AgentView.count({

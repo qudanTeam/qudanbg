@@ -41,6 +41,9 @@ export default class Customer extends Service {
     const reply = await this.model.CustomerPdcView.findAll({
       offset,
       limit,
+      order: [
+        ['modify_time', 'DESC'],
+      ],
       where: condition,
     });
 

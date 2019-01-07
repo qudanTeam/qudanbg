@@ -178,8 +178,9 @@ export default class User extends Service {
     SELECT count(*) c FROM (${sql}) AS temp
     `, { type: this.model.QueryTypes.SELECT });
 
+    sql += ' ORDER BY user.register_time DESC'
     sql += ' LIMIT :offset, :limit';
-
+    
     const list = await this.model.query(sql, {
       replacements: { offset, limit },
       type: this.model.QueryTypes.SELECT,

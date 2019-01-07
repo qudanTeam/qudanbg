@@ -55,6 +55,8 @@ export default (appInfo: EggAppInfo) => {
       secret: 'FCgzF5i6nxisRZlEP96ry3CQTjgk26GyQlt25EiK',
       bulket: 'qudan-idc',
     },
+
+    javaAPI: 'http://47.99.242.122:8763/msqudan/api',
   };
 
   // the return config will combines to EggAppConfig

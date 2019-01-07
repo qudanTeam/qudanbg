@@ -111,6 +111,9 @@ export default class Product extends Service {
       offset,
       limit,
       where: condition,
+      order: [
+        ['modify_time', 'desc'],
+      ],
     });
 
     const total = await this.model.Product.count({

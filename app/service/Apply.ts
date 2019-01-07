@@ -24,11 +24,13 @@ export default class Apply extends Service {
     SELECT 
       p.id, 
       p.product_name, 
+      MAX(aly.modify_time) modify_time, 
       COUNT(1) total
     FROM apply aly 
     LEFT JOIN product p ON p.id = aly.product_id 
     WHERE 1=1 ${where}
     GROUP BY p.id, p.product_name
+    ORDER BY modify_time DESC
     `
     const totals = await this.model.query(`
     SELECT count(*) c FROM (${sql}) AS temp
@@ -101,6 +103,7 @@ export default class Apply extends Service {
     LEFT JOIN product p ON p.id = aly.product_id
     LEFT JOIN user u ON u.id = aly.user_id
     WHERE 1=1 ${where}
+    ORDER BY aly.modify_time DESC
     `;
 
     const totals = await this.model.query(`

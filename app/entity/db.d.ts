@@ -110,6 +110,7 @@ export interface applyAttribute {
   official_limit?:number;
   official_expire?:string;
   official_time?:Date;
+  load_money?:number;
 }
 export interface applyInstance extends Sequelize.Instance<applyAttribute>, applyAttribute { }
 export interface applyModel extends Sequelize.Model<applyInstance, applyAttribute> { }
