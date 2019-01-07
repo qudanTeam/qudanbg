@@ -7,8 +7,8 @@ export default class MonthSettle extends Subscription {
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
-      cron: '0 0 0 1 * *',
-      // interval: '10s', // 1 分钟间隔
+      // cron: '0 0 0 1 * *',
+      interval: '10s', // 1 分钟间隔
       type: 'all',
     };
   }
@@ -17,7 +17,8 @@ export default class MonthSettle extends Subscription {
   async subscribe() {
     console.log('开始执行定时月度结算任务，结算上月的阶梯奖励');
     const { model } = this.ctx;
-    const month = moment().startOf("month").subtract(1000);
+    // const month = moment().startOf("month").subtract(1000);
+    const month = moment().startOf("month")
     console.log(month.format("YYYY-MM-DD HH:mm:ss"));
     const tmonth = month.format("YYYYMM")
     
@@ -29,8 +30,25 @@ export default class MonthSettle extends Subscription {
     const list = await model.query(sql, {
       type: model.QueryTypes.SELECT,
     });
+
+    const foundAll = await model.TradeType.findAll({
+      where: {
+        trade_type: 5,
+      }
+    });
+
+    const userTradeTypeMapper: any = {}
+
+    for (const item of foundAll) {
+      if (item.user_id) {
+        userTradeTypeMapper[item.user_id] = item;
+      }
+    }
+
     const tradeTypes: trade_typeAttribute[] = []
+    const updateTradeTypes: any[] = []
     for (const item of list) {
+      
       try {
 
         // 计算阶梯奖励
@@ -88,7 +106,27 @@ export default class MonthSettle extends Subscription {
           }
         }
 
-        price = level + baseSalary;
+        // price = level + baseSalary;
+        price = level;
+
+        if (userTradeTypeMapper[item.recommend_invite_id]) {
+          updateTradeTypes.push({
+            // id: 0,
+            trade_type: 5,
+            user_id: user_id,
+            price,
+            account: item.account,
+            create_time: new Date(),
+            modify_time: new Date(),
+            status: 1,
+            send_status: 1,
+            base_price: baseSalary,
+            vip_price: 0,
+            agent_level: 0,
+            agent_rate: 0,
+          })
+          continue;
+        }
         
         tradeTypes.push({
           id: 0,
@@ -125,6 +163,18 @@ export default class MonthSettle extends Subscription {
         }
         trades.push(model.TradeType.bulkCreate(tradeTypes.slice(startIndex,endIndex), {
           transaction: t,
+        }));
+      }
+
+      for (const uitem of updateTradeTypes) {
+        if (!uitem.user_id) {
+          continue;
+        }
+        trades.push(model.TradeType.update(uitem, {
+          where: {
+            user_id: uitem.user_id,
+            trade_type: 5,
+          },
         }));
       }
 
