@@ -8,7 +8,7 @@ export default class MonthSettle extends Subscription {
   static get schedule() {
     return {
       // cron: '0 0 0 1 * *',
-      interval: '10s', // 1 分钟间隔
+      interval: '180s', // 1 分钟间隔
       type: 'all',
     };
   }
