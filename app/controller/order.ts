@@ -29,8 +29,7 @@ export default class OrderController extends Controller {
     const { ctx } = this;
     
     const { id } = ctx.params;
-
-    const reply = await ctx.service.order.passOne(id);
+    const reply = await ctx.service.order.passOne(id, ctx.request.body);
 
     this.ctx.body = reply;
   }

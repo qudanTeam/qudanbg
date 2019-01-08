@@ -70,7 +70,7 @@ export default class Order extends Service {
     }
   }
 
-  async passOne(id: number) {
+  async passOne(id: number, others: any) {
 
     const { ctx, config } = this;
 
@@ -79,6 +79,9 @@ export default class Order extends Service {
       modify_time: new Date(),
       status: 2,
       official_status: 2,
+      loan_expire: others.loan_expire,
+      loan_money: others.loan_money,
+      card_money: others.card_money,
     }, {
       where: {
         id,

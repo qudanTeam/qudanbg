@@ -83,7 +83,15 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DATE,
       allowNull: true
     },
-    load_money: {
+    loan_money: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+    },
+    loan_limit: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    card_money: {
       type: DataTypes.DOUBLE,
       allowNull: true,
     },
