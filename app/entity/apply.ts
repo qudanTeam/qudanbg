@@ -87,7 +87,7 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DOUBLE,
       allowNull: true,
     },
-    loan_limit: {
+    loan_expire: {
       type: DataTypes.STRING,
       allowNull: true,
     },
