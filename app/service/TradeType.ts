@@ -13,9 +13,31 @@ export default class TradeType extends Service {
 
   async findList(filter) {
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filter);
+    let where = '';
+
+    console.log(filter);
+
+    if (filter.start_time) {
+      where += ` AND tt.create_time >= '${filter.start_time}'`;
+    }
+
+    if (filter.end_time) {
+      where += ` AND tt.create_time <= '${filter.end_time}'`;
+    }
+
+    if (filter.trade_type && filter.trade_type > 0) {
+      where += ` AND tt.trade_type = ${filter.trade_type}`;
+    }
+
+    if (filter.invite_code) {
+      where += ` AND u.invite_code = '${filter.invite_code}'`;
+    }
 
     let sql = `
-    SELECT tt.*, u.invite_code FROM trade_type tt LEFT JOIN user u ON u.id = tt.user_id WHERE tt.send_status = 2
+    SELECT tt.*, u.invite_code 
+    FROM trade_type tt 
+    LEFT JOIN user u ON u.id = tt.user_id 
+    WHERE tt.send_status = 2 ${where}
     `
     
     const totals = await this.model.query(`
@@ -69,11 +91,39 @@ export default class TradeType extends Service {
   async findSalaryList(filter) {
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filter);
 
+    let where = '';
+
+    console.log(filter);
+
+    if (filter.start_time) {
+      where += ` AND tt.create_time >= '${filter.start_time}'`;
+    }
+
+    if (filter.end_time) {
+      where += ` AND tt.create_time <= '${filter.end_time}'`;
+    }
+
+    if (filter.trade_type && filter.trade_type > 0) {
+      where += ` AND tt.trade_type = ${filter.trade_type}`;
+    }
+
+    if (filter.invite_code) {
+      where += ` AND u.invite_code = '${filter.invite_code}'`;
+    }
+
+    if (filter.apply_id_code) {
+      where += ` AND aly.apply_id_code = '${filter.apply_id_code}'`;
+    }
+
+    if (filter.status && filter.status > 0) {
+      where += ` AND tt.status = '${filter.status}'`;
+    }
+
     let sql = `
     SELECT tt.*, aly.apply_id_code apply_id_code, u.invite_code invite_code FROM trade_type tt 
     LEFT JOIN user u ON u.id = tt.user_id 
     LEFT JOIN apply aly ON aly.id = tt.apply_id
-    WHERE tt.trade_type IN (2,3,5)
+    WHERE tt.trade_type IN (2,3,5) AND tt.price > 0 ${where}
     `
     
     const totals = await this.model.query(`
@@ -108,13 +158,39 @@ export default class TradeType extends Service {
       return
     }
 
-    await this.model.TradeType.update({
-      status: 2,
-      send_status: 2,
-    }, {
+    // 修改用户余额
+    const account = await this.model.UserAccount.findOne({
       where: {
-        id,
-      }
+        user_id: founded.user_id,
+      },
+    });
+
+    if (!account) {
+      this.ctx.throw(404, '没有找到该用户账户');
+      return;
+    }
+
+    account.blance = (account.blance || 0) + (founded.price || 0);
+    account.allow_tx = (account.allow_tx || 0) + (founded.price || 0);
+
+    await this.model.transaction(t => {
+      return Promise.all([
+        this.model.TradeType.update({
+          status: 2,
+          send_status: 2,
+        }, {
+          where: {
+            id,
+          },
+          transaction: t,
+        }),
+        this.model.UserAccount.update(account, {
+          where: {
+            id: account.id,
+          },
+          transaction: t,
+        }),
+      ]);
     });
 
     return {
@@ -176,6 +252,14 @@ export default class TradeType extends Service {
       where += ` AND tt.status = 3`;
     }
 
+    if (filters.start_time) {
+      where += ` AND tt.create_time >= '${filters.start_time}'`;
+    }
+
+    if (filters.end_time) {
+      where += ` AND tt.create_time <= '${filters.end_time}'`;
+    }
+
     let sql = `
     SELECT 
       tt.id, # 提现编号
@@ -233,13 +317,39 @@ export default class TradeType extends Service {
       return
     }
 
-    await this.model.TradeType.update({
-      status: 2,
-      audit_time: new Date(),
-    }, {
+    // 修改用户余额
+    const account = await this.model.UserAccount.findOne({
       where: {
-        id,
-      }
+        user_id: founded.user_id,
+      },
+    });
+
+    if (!account) {
+      this.ctx.throw(404, '没有找到该用户账户');
+      return;
+    }
+
+    account.blance = (account.blance || 0) - (founded.price || 0);
+    account.tx = (account.tx || 0) - (founded.price || 0);
+
+    await this.model.transaction((t) => {
+      return Promise.all([
+        this.model.UserAccount.update(account, {
+          where: {
+            id: account.id,
+          },
+          transaction: t,
+        }),
+        this.model.TradeType.update({
+          status: 2,
+          audit_time: new Date(),
+        }, {
+          where: {
+            id,
+          },
+          transaction: t,
+        }),
+      ])
     });
 
     return {

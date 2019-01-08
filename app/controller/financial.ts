@@ -3,10 +3,11 @@ import { Controller } from 'egg';
 export default class FinancialController extends Controller {
   async index() {
     const { ctx, service } = this;
-    const { page = 0, pageSize = 15 } = ctx.request.query;
+    const { page = 0, pageSize = 15, ...rest } = ctx.request.query;
     const reply = await service.tradeType.findList({
       page,
-      pageSize
+      pageSize,
+      ...rest,
     });
 
     ctx.response.body = reply;
@@ -25,10 +26,11 @@ export default class FinancialController extends Controller {
 
   async findSalaryList() {
     const { ctx, service } = this;
-    const { page = 0, pageSize = 15 } = ctx.request.query;
+    const { page = 0, pageSize = 15, ...rest } = ctx.request.query;
     const reply = await service.tradeType.findSalaryList({
       page,
-      pageSize
+      pageSize,
+      ...rest
     });
 
     ctx.response.body = reply;

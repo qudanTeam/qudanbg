@@ -253,6 +253,14 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    share_logo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    share_content: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     tableName: 'product'
   });

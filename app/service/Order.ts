@@ -42,12 +42,19 @@ export default class Order extends Service {
       condition['product_type'] = filters.product_type
     }
 
+    if (filters.start_time && filters.end_time) {
+      condition['create_time'] = {
+        [this.model.Op.gte]: `${filters.start_time}`,
+        [this.model.Op.lte]: `${filters.end_time}`,
+      }
+    }
+
     const reply = await this.model.OrderView.findAll({
       offset,
       limit,
       where: condition,
       order: [
-        ['modify_time', 'DESC'],
+        ['create_time', 'DESC'],
       ]
     });
 

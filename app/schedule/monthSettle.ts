@@ -175,10 +175,15 @@ export default class MonthSettle extends Subscription {
             user_id: uitem.user_id,
             trade_type: 5,
           },
+          transaction: t,
         }));
       }
 
       return Promise.all(trades);
+    }).then(() => {
+      console.log("已经提交")
+    }).catch(() => {
+      console.log("出错了 ====");
     });
   }
 }

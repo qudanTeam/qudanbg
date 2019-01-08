@@ -314,6 +314,8 @@ export interface productAttribute {
   product_link?:string;
   product_poster?:string;
   loan_limit?:number;
+  share_logo?:string;
+  share_content?:string;
 }
 export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
 export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }
