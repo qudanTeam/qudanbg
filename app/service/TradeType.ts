@@ -171,10 +171,10 @@ export default class TradeType extends Service {
     }
 
     const blance = Number((account.blance || 0)) + Number((founded.price || 0));
-    const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
+    // const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
 
     console.log(blance);
-    console.log(allow_tx, 'allow_tx')
+    // console.log(allow_tx, 'allow_tx')
 
     await this.model.transaction(t => {
       return Promise.all([
@@ -188,7 +188,7 @@ export default class TradeType extends Service {
           transaction: t,
         }),
         this.model.UserAccount.update({
-          allow_tx,
+          // allow_tx,
           blance,
         }, {
           where: {
@@ -216,8 +216,27 @@ export default class TradeType extends Service {
       return
     }
 
+    // // 修改用户余额
+    // const account = await this.model.UserAccount.findOne({
+    //   where: {
+    //     user_id: founded.user_id,
+    //   },
+    // });
+
+    // if (!account) {
+    //   this.ctx.throw(404, '没有找到该用户账户');
+    //   return;
+    // }
+
+    // const blance = Number((account.blance || 0)) - Number((founded.price || 0));
+    // const allow_tx = Number((account.allow_tx || 0)) - Number((founded.price || 0));
+
+    // console.log(blance);
+    // console.log(allow_tx, 'allow_tx')
+
     await this.model.TradeType.update({
       status: 3,
+      send_status: 1,
       remark: msg,
       reject_reason: msg,
     }, {
@@ -336,13 +355,13 @@ export default class TradeType extends Service {
     }
 
     const blance = Number(account.blance || 0) - Number(founded.price || 0);
-    const tx = Number(account.tx || 0) - Number(founded.price || 0);
+    // const tx = Number(account.tx || 0) - Number(founded.price || 0);
 
     await this.model.transaction((t) => {
       return Promise.all([
         this.model.UserAccount.update({
           blance,
-          tx,
+          // tx,
         }, {
           where: {
             id: account.id,
@@ -381,6 +400,7 @@ export default class TradeType extends Service {
 
     await this.model.TradeType.update({
       status: 3,
+      // send_status: 1,
       remark: msg,
       reject_reason: msg,
       audit_time: new Date(),
