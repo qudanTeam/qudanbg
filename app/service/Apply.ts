@@ -74,15 +74,23 @@ export default class Apply extends Service {
     }
 
     if (filters.user_mobile) {
-      where += ` AND u.mobile LIKE '%${filters.user_mobile}%'`
+      where += ` AND aly.mobile LIKE '%${filters.user_mobile}%'`
     }
 
     if (filters.user_id_no) {
-      where += ` AND u.id_no LIKE '%${filters.user_id_no}%'`
+      where += ` AND aly.id_no LIKE '%${filters.user_id_no}%'`
     }
 
     if (filters.user_recommend_invite_code) {
       where += ` AND u.recommend_invite_code LIKE '%${filters.user_recommend_invite_code}%'`
+    }
+
+    if (filters.start_time) {
+      where += ` AND aly.create_time >= '${filters.start_time}'`;
+    }
+
+    if (filters.end_time) {
+      where += ` AND aly.create_time <= '${filters.end_time}'`;
     }
 
     let sql = `
@@ -103,7 +111,7 @@ export default class Apply extends Service {
     LEFT JOIN product p ON p.id = aly.product_id
     LEFT JOIN user u ON u.id = aly.user_id
     WHERE 1=1 ${where}
-    ORDER BY aly.modify_time DESC
+    ORDER BY aly.create_time DESC
     `;
 
     const totals = await this.model.query(`

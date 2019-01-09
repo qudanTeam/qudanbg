@@ -94,6 +94,18 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     finished_task_price: {
       type: DataTypes.DECIMAL,
       allowNull: true
+    },
+    loan_money: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
+    },
+    loan_expire: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    card_money: {
+      type: DataTypes.DOUBLE,
+      allowNull: true,
     }
   }, {
     tableName: 'order_view'

@@ -235,6 +235,9 @@ export interface order_viewAttribute {
   product_name?:string;
   finished_task_count?:number;
   finished_task_price?:number;
+  loan_money?:number;
+  loan_expire?:string;
+  card_money?:number;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }

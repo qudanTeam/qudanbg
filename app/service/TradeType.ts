@@ -183,6 +183,8 @@ export default class TradeType extends Service {
         this.model.TradeType.update({
           status: 2,
           send_status: 2,
+          audit_time: new Date(),
+          send_time: new Date(),
         }, {
           where: {
             id,
@@ -246,6 +248,8 @@ export default class TradeType extends Service {
       send_status: 1,
       remark: msg,
       reject_reason: msg,
+      audit_time: new Date(),
+      // send_time: new Date(),
     }, {
       where: {
         id,
