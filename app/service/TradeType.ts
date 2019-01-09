@@ -170,8 +170,11 @@ export default class TradeType extends Service {
       return;
     }
 
-    account.blance = (account.blance || 0) + (founded.price || 0);
-    account.allow_tx = (account.allow_tx || 0) + (founded.price || 0);
+    const blance = Number((account.blance || 0)) + Number((founded.price || 0));
+    const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
+
+    console.log(blance);
+    console.log(allow_tx, 'allow_tx')
 
     await this.model.transaction(t => {
       return Promise.all([
@@ -184,7 +187,10 @@ export default class TradeType extends Service {
           },
           transaction: t,
         }),
-        this.model.UserAccount.update(account, {
+        this.model.UserAccount.update({
+          allow_tx,
+          blance,
+        }, {
           where: {
             id: account.id,
           },
@@ -329,12 +335,15 @@ export default class TradeType extends Service {
       return;
     }
 
-    account.blance = (account.blance || 0) - (founded.price || 0);
-    account.tx = (account.tx || 0) - (founded.price || 0);
+    const blance = Number(account.blance || 0) - Number(founded.price || 0);
+    const tx = Number(account.tx || 0) - Number(founded.price || 0);
 
     await this.model.transaction((t) => {
       return Promise.all([
-        this.model.UserAccount.update(account, {
+        this.model.UserAccount.update({
+          blance,
+          tx,
+        }, {
           where: {
             id: account.id,
           },
