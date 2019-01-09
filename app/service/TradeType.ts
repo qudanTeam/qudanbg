@@ -145,6 +145,10 @@ export default class TradeType extends Service {
     };
   }
 
+  /**
+   * 通过工资审核
+   * @param id 
+   */
   async passSalary(id: number) {
 
     const founded = await this.model.TradeType.findOne({
@@ -171,11 +175,9 @@ export default class TradeType extends Service {
     }
 
     const blance = Number((account.blance || 0)) + Number((founded.price || 0));
-    // const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
-
-    console.log(blance, 'balance ======');
-    // console.log(allow_tx, 'allow_tx')
-
+    const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
+    console.log("工资结算 allow_tx:", allow_tx);
+    console.log('工资结算 blance:', blance);
     await this.model.transaction(t => {
       return Promise.all([
         this.model.TradeType.update({
@@ -188,7 +190,7 @@ export default class TradeType extends Service {
           transaction: t,
         }),
         this.model.UserAccount.update({
-          // allow_tx,
+          allow_tx,
           blance,
         }, {
           where: {
@@ -204,6 +206,11 @@ export default class TradeType extends Service {
     };
   }
 
+  /**
+   * 拒绝工资结算
+   * @param id 
+   * @param msg 
+   */
   async refuseSalary(id: number, msg: string) {
     const founded = await this.model.TradeType.findOne({
       where: {
@@ -354,14 +361,14 @@ export default class TradeType extends Service {
       return;
     }
 
-    const blance = Number(account.blance || 0) - Number(founded.price || 0);
-    // const tx = Number(account.tx || 0) - Number(founded.price || 0);
+    // const blance = Number(account.blance || 0) - Number(founded.price || 0);
+    const tx = Number(account.tx || 0) - Number(founded.price || 0);
 
     await this.model.transaction((t) => {
       return Promise.all([
         this.model.UserAccount.update({
-          blance,
-          // tx,
+          // blance,
+          tx,
         }, {
           where: {
             id: account.id,
@@ -398,9 +405,28 @@ export default class TradeType extends Service {
       return
     }
 
+    // 修改用户余额
+    const account = await this.model.UserAccount.findOne({
+      where: {
+        user_id: founded.user_id,
+      },
+    });
+
+    if (!account) {
+      this.ctx.throw(404, '没有找到该用户账户');
+      return;
+    }
+    let blance = Number(account.blance || 0) + Number(founded.price || 0);
+    let allow_tx = Number(account.allow_tx || 0) + Number(founded.price || 0);
+    const tx = Number(account.tx || 0) - Number(founded.price || 0);
+    if (tx <= 0) {
+      blance = Number(account.blance || 0) + Number(account.tx || 0);
+      allow_tx = Number(account.allow_tx || 0) + Number(account.tx || 0);
+    }
+    
+
     await this.model.TradeType.update({
       status: 3,
-      // send_status: 1,
       remark: msg,
       reject_reason: msg,
       audit_time: new Date(),
@@ -408,6 +434,32 @@ export default class TradeType extends Service {
       where: {
         id,
       }
+    });
+
+    await this.model.transaction((t) => {
+      return Promise.all([
+        this.model.UserAccount.update({
+          blance,
+          allow_tx,
+          tx,
+        }, {
+          where: {
+            id: account.id,
+          },
+          transaction: t,
+        }),
+        this.model.TradeType.update({
+          status: 3,
+          remark: msg,
+          reject_reason: msg,
+          audit_time: new Date(),
+        }, {
+          where: {
+            id,
+          },
+          transaction: t,
+        }),
+      ])
     });
 
     return {
