@@ -173,7 +173,7 @@ export default class TradeType extends Service {
     const blance = Number((account.blance || 0)) + Number((founded.price || 0));
     // const allow_tx = Number((account.allow_tx || 0)) + Number((founded.price || 0));
 
-    console.log(blance);
+    console.log(blance, 'balance ======');
     // console.log(allow_tx, 'allow_tx')
 
     await this.model.transaction(t => {
