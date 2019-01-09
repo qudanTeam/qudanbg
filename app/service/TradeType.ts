@@ -351,6 +351,7 @@ export default class TradeType extends Service {
         }),
         this.model.TradeType.update({
           status: 2,
+          send_status: 2,
           audit_time: new Date(),
         }, {
           where: {
