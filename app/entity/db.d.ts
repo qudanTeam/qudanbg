@@ -238,6 +238,7 @@ export interface order_viewAttribute {
   loan_money?:number;
   loan_expire?:string;
   card_money?:number;
+  user_invite_code?:number;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }

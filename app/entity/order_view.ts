@@ -106,7 +106,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     card_money: {
       type: DataTypes.DOUBLE,
       allowNull: true,
-    }
+    },
+    user_invite_code: {
+      type: DataTypes.STRING(200),
+      allowNull: true,
+    },
   }, {
     tableName: 'order_view'
   });
