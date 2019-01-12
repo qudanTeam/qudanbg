@@ -119,6 +119,7 @@ export default class Order extends Service {
     await this.model.Apply.update({
       modify_time: new Date(),
       status: 3,
+      official_status: 3,
     }, {
       where: {
         id,

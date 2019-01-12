@@ -8,7 +8,7 @@ export default class MonthSettle extends Subscription {
   static get schedule() {
     return {
       // cron: '0 0 0 1 * *',
-      interval: '180s', // 1 分钟间隔
+      interval: '10s', // 1 分钟间隔
       type: 'all',
     };
   }
@@ -81,29 +81,29 @@ export default class MonthSettle extends Subscription {
         
         let level = 0;
         if (product_type === 2) {
-          const maxC = (c_limit * 10000 - c_start * 10000) * (b_level_reward/100);
-          const maxB = (c_start * 10000 - b_begin * 10000) * (c_level_reward/100);
+          const maxC = (c_limit * 10000 - c_start * 10000) * (c_level_reward/100);
+          const maxB = (c_start * 10000 - b_begin * 10000) * (b_level_reward/100);
 
           level = maxC + maxB;
 
-          if (loan_money < c_start) {
+          if (loan_money <= c_start) {
             level = level - maxC;
           }
 
-          if (loan_money < b_begin) {
+          if (loan_money <= b_begin) {
             level = level - maxB;
           }
         } else {
-          const maxC = (c_limit - c_start) * (b_level_reward - a_level_reward)
-          const maxB = (c_start - b_begin) * (c_level_reward - a_level_reward)
+          const maxC = (c_limit - c_start) * (c_level_reward - a_level_reward)
+          const maxB = (c_start - b_begin) * (b_level_reward - a_level_reward)
 
           level = maxC + maxB;
 
-          if (total < c_start) {
+          if (total <= c_start) {
             level = level - maxC;
           }
 
-          if (total < b_begin) {
+          if (total <= b_begin) {
             level = level - maxB;
           }
         }
