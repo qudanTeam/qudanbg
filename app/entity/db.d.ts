@@ -111,7 +111,7 @@ export interface applyAttribute {
   official_expire?:string;
   official_time?:Date;
   loan_money?:number;
-  loan_expire?:number;
+  loan_expire?:string;
   card_money?:number;
 }
 export interface applyInstance extends Sequelize.Instance<applyAttribute>, applyAttribute { }
@@ -239,6 +239,9 @@ export interface order_viewAttribute {
   loan_expire?:string;
   card_money?:number;
   user_invite_code?:number;
+  syr_realname?:string;
+  syr_id_no?:string;
+  syr_register_mobile?:string;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }

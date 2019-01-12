@@ -43,4 +43,30 @@ export default class OrderController extends Controller {
 
     this.ctx.body = reply;
   }
+
+  async update() {
+    const { ctx } = this;
+    const { model } = ctx;
+    const { id } = ctx.params;
+    const {
+      card_money = '',
+      loan_money = 0,
+      loan_expire = '',
+    } = ctx.request.body;
+    await model.Apply.update({
+      card_money,
+      loan_money,
+      loan_expire,
+      official_expire: loan_expire,
+      official_limit: loan_money,
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    ctx.response.body = {
+      id,
+    };
+  }
 }

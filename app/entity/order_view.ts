@@ -111,6 +111,18 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING(200),
       allowNull: true,
     },
+    syr_realname: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    syr_id_no: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    syr_register_mobile: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     tableName: 'order_view'
   });

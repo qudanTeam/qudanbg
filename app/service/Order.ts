@@ -82,6 +82,9 @@ export default class Order extends Service {
       loan_expire: others.loan_expire,
       loan_money: others.loan_money,
       card_money: others.card_money,
+      official_expire: others.loan_expire,
+      official_limit: others.loan_money,
+      official_time: new Date(),
     }, {
       where: {
         id,
