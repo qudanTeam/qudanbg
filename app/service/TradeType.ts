@@ -130,6 +130,7 @@ export default class TradeType extends Service {
     SELECT count(*) c FROM (${sql}) AS temp
     `, { type: this.model.QueryTypes.SELECT });
 
+    sql += ' ORDER BY tt.create_time DESC';
     sql += ' LIMIT :offset, :limit';
 
     const list = await this.model.query(sql, {
@@ -365,13 +366,13 @@ export default class TradeType extends Service {
       return;
     }
 
-    // const blance = Number(account.blance || 0) - Number(founded.price || 0);
+    const blance = Number(account.blance || 0) - Number(founded.price || 0);
     const tx = Number(account.tx || 0) - Number(founded.price || 0);
 
     await this.model.transaction((t) => {
       return Promise.all([
         this.model.UserAccount.update({
-          // blance,
+          blance,
           tx,
         }, {
           where: {
@@ -381,7 +382,7 @@ export default class TradeType extends Service {
         }),
         this.model.TradeType.update({
           status: 2,
-          send_status: 2,
+          // send_status: 2,
           audit_time: new Date(),
         }, {
           where: {

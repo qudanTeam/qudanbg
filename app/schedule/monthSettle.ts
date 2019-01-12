@@ -75,6 +75,7 @@ export default class MonthSettle extends Subscription {
           b_level_reward = 0,
           c_level_reward = 0,
           loan_money = 0,
+          total = 0,
         } = item;
         
         let level = 0;
@@ -97,11 +98,11 @@ export default class MonthSettle extends Subscription {
 
           level = maxC + maxB;
 
-          if (loan_money <= c_start) {
+          if (total <= c_start) {
             level = level - maxC;
           }
 
-          if (loan_money <= b_begin) {
+          if (total <= b_begin) {
             level = level - maxB;
           }
         }
