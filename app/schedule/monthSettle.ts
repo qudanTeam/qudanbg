@@ -86,11 +86,11 @@ export default class MonthSettle extends Subscription {
 
           level = maxC + maxB;
 
-          if (loan_money <= c_start) {
+          if (loan_money < c_start) {
             level = level - maxC;
           }
 
-          if (loan_money <= b_begin) {
+          if (loan_money < b_begin) {
             level = level - maxB;
           }
         } else {
@@ -99,11 +99,11 @@ export default class MonthSettle extends Subscription {
 
           level = maxC + maxB;
 
-          if (total <= c_start) {
+          if (total < c_start) {
             level = level - maxC;
           }
 
-          if (total <= b_begin) {
+          if (total < b_begin) {
             level = level - maxB;
           }
         }
