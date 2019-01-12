@@ -105,7 +105,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     remark: {
       type: DataTypes.STRING(1000),
       allowNull: true
-    }
+    },
+    product_id: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+    },
   }, {
     tableName: 'trade_type'
   });

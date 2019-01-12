@@ -496,6 +496,7 @@ export interface trade_typeAttribute {
   agent_level?:number;
   agent_rate?:number;
   remark?:string;
+  product_id?:number;
 }
 export interface trade_typeInstance extends Sequelize.Instance<trade_typeAttribute>, trade_typeAttribute { }
 export interface trade_typeModel extends Sequelize.Model<trade_typeInstance, trade_typeAttribute> { }

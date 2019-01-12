@@ -8,7 +8,7 @@ export default class MonthSettle extends Subscription {
   static get schedule() {
     return {
       // cron: '0 0 0 1 * *',
-      interval: '180s', // 1 分钟间隔
+      interval: '10s', // 1 分钟间隔
       type: 'all',
     };
   }
@@ -41,7 +41,7 @@ export default class MonthSettle extends Subscription {
 
     for (const item of foundAll) {
       if (item.user_id) {
-        userTradeTypeMapper[item.user_id] = item;
+        userTradeTypeMapper[`${item.user_id}_${item.product_id}`] = item;
       }
     }
 
@@ -72,6 +72,7 @@ export default class MonthSettle extends Subscription {
           // a_begin = 0,
           b_begin = 0,
           c_start = 0,
+          a_level_reward = 0,
           b_level_reward = 0,
           c_level_reward = 0,
           loan_money = 0,
@@ -93,8 +94,8 @@ export default class MonthSettle extends Subscription {
             level = level - maxB;
           }
         } else {
-          const maxC = (c_limit - c_start) * b_level_reward
-          const maxB = (c_start - b_begin) * c_level_reward
+          const maxC = (c_limit - c_start) * (b_level_reward - a_level_reward)
+          const maxB = (c_start - b_begin) * (c_level_reward - a_level_reward)
 
           level = maxC + maxB;
 
@@ -110,12 +111,15 @@ export default class MonthSettle extends Subscription {
         // price = level + baseSalary;
         price = level;
 
-        if (userTradeTypeMapper[item.recommend_invite_id]) {
+        console.log("产品价格", price);
+
+        if (userTradeTypeMapper[`${item.recommend_invite_id}_${item.product_id}`]) {
           updateTradeTypes.push({
             // id: 0,
             trade_type: 5,
             user_id: user_id,
             price,
+            product_id: item.product_id,
             account: item.account,
             create_time: new Date(),
             modify_time: new Date(),
@@ -133,6 +137,7 @@ export default class MonthSettle extends Subscription {
           id: 0,
           trade_type: 5,
           user_id: user_id,
+          product_id: item.product_id,
           price,
           account: item.account,
           create_time: new Date(),
@@ -175,6 +180,8 @@ export default class MonthSettle extends Subscription {
           where: {
             user_id: uitem.user_id,
             trade_type: 5,
+            product_id: uitem.product_id,
+            // product_id: 
           },
           transaction: t,
         }));
