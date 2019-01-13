@@ -428,6 +428,8 @@ export default class TradeType extends Service {
       blance = Number(account.blance || 0) + Number(account.tx || 0);
       allow_tx = Number(account.allow_tx || 0) + Number(account.tx || 0);
     }
+
+    console.log(blance);
     
 
     await this.model.TradeType.update({
