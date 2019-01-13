@@ -52,6 +52,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING(255),
       allowNull: true,
     },
+    is_delete: {
+      type: DataTypes.TINYINT(2),
+      allowNull: true,
+    }
   }, {
     tableName: 'category'
   });

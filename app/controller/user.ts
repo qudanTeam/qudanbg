@@ -94,5 +94,80 @@ export default class UserController extends Controller {
 
     ctx.response.body = reply;
   }
+
+  /**
+   * 充值
+   */
+  async deposit() {
+    const { ctx } = this;
+    const id = ctx.params.id;
+    const {
+      blance,
+    } = ctx.request.body;
+    const { model } = ctx;
+
+    const foundUserAccount = await model.UserAccount.findOne({
+      where: {
+        user_id: id,
+      },
+    });
+
+    if (!foundUserAccount) {
+      // ctx.throw(404, 'not found this account');
+      const reply = await model.UserAccount.create({
+        id: 0,
+        user_id: id,
+        blance,
+        allow_tx: blance,
+      });
+
+      await model.TradeType.create({
+        id: 0,
+        trade_type: 6,
+        price: blance,
+        create_time: new Date(),
+        modify_time: new Date(),
+        status: 2,
+        account: reply.id,
+        send_status: 2,
+        audit_time: new Date(),
+        send_time: new Date(),
+        user_id: id,
+      });
+
+      ctx.response.body = {
+        id: reply.user_id,
+      };
+      return
+    }
+    await model.UserAccount.update({
+      blance: foundUserAccount.blance + blance,
+      allow_tx: foundUserAccount.allow_tx + blance,
+    }, {
+      where: {
+        user_id: id,
+      }
+    });
+
+    await model.TradeType.create({
+      id: 0,
+      trade_type: 6,
+      price: blance,
+      create_time: new Date(),
+      modify_time: new Date(),
+      status: 2,
+      account: foundUserAccount.id,
+      send_status: 2,
+      audit_time: new Date(),
+      send_time: new Date(),
+      user_id: id,
+    })
+
+    ctx.response.body = {
+      id,
+    };
+
+    return;
+  }
   
 }

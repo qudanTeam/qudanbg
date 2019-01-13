@@ -41,4 +41,15 @@ export default class CategoryController extends Controller {
     const result = await ctx.service.category.search(ctx.request.query);
     this.ctx.body = result;
   }
+
+  async destroy() {
+    const { ctx, service } = this;
+    const { id } = ctx.params;
+
+    console.log(id, "destroy");
+
+    const reply = await service.category.delete(id);
+
+    this.ctx.body = reply
+  }
 }

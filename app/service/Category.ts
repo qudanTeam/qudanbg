@@ -15,7 +15,9 @@ export default class Category extends Service {
   async findList(filters: any) {
     const { ctx } = this;
     const { offset, limit } = ctx.helper.parsedPageFromParams(filters);
-    let condition: any = {};
+    let condition: any = {
+      is_delete: 0,
+    };
     console.log(filters);
     if (filters.category_type) {
       condition.category_type = filters.category_type;
@@ -91,5 +93,19 @@ export default class Category extends Service {
     return {
       id,
     };
+  }
+
+  async delete(id: number) {
+    await this.model.Category.update({
+      is_delete: 1,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    }
   }
 }

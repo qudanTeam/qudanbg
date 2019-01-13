@@ -145,6 +145,7 @@ export interface categoryAttribute {
   need_mobile_verify_code?:number;
   verify_code_link?:string;
   mobile_verify_code_link?:string;
+  is_delete?:number;
 }
 export interface categoryInstance extends Sequelize.Instance<categoryAttribute>, categoryAttribute { }
 export interface categoryModel extends Sequelize.Model<categoryInstance, categoryAttribute> { }

@@ -18,6 +18,7 @@ export default (app: Application) => {
   app.router.get('/users/:id/childs', app.controller.user.queryChildUsers);
   app.router.get('/users/:id/vipInfo', app.controller.user.showVipInfo);
   app.router.get('/users/:id/agentInfo', app.controller.user.showAgentInfo);
+  app.router.put('/users/:id/deposit', app.controller.user.deposit);
   // app.router.put('/users/:id', app.controller.user.updateUser);
   app.router.resources('users', '/users', app.controller.user);
   app.router.resources('vipconfigs', '/vipconfigs', app.controller.vipConfigs);
@@ -53,4 +54,5 @@ export default (app: Application) => {
   app.router.put('/financials/:id/passOneWithdraw', app.controller.financial.passOneWithdraw);
   app.router.put('/financials/:id/refuseOneWithdraw', app.controller.financial.refuseOneWithdraw);
   app.router.put('/financials/:id/finishedWithdraw', app.controller.financial.finishedWithdraw);
+  
 };

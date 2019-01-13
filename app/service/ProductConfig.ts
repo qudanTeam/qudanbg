@@ -47,7 +47,7 @@ export default class ProductConfig extends Service {
     const created = await this.model.ProductConfig.create(config);
     return {
       id: created.id,
-      createdAt: moment(created.create_time).utc().zone(+8).format(moment.defaultFormat),
+      createdAt: moment(created.create_time).format(moment.defaultFormat),
     }
   }
 
