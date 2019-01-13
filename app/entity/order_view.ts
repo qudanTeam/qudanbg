@@ -123,6 +123,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING,
       allowNull: true,
     },
+    register_mobile: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     tableName: 'order_view'
   });

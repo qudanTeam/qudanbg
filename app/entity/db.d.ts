@@ -242,6 +242,7 @@ export interface order_viewAttribute {
   syr_realname?:string;
   syr_id_no?:string;
   syr_register_mobile?:string;
+  register_mobile?:string;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }

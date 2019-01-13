@@ -444,7 +444,7 @@ export default class TradeType extends Service {
     await this.model.transaction((t) => {
       return Promise.all([
         this.model.UserAccount.update({
-          blance,
+          // blance,
           allow_tx,
           tx,
         }, {
