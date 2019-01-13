@@ -55,7 +55,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     is_delete: {
       type: DataTypes.TINYINT(2),
       allowNull: true,
-    }
+    },
+    has_link: {
+      type: DataTypes.TINYINT(2),
+      allowNull: true,
+    },
   }, {
     tableName: 'category'
   });

@@ -104,6 +104,8 @@ export default class UserController extends Controller {
     const {
       blance,
     } = ctx.request.body;
+
+    console.log(blance, 'blance');
     const { model } = ctx;
 
     const foundUserAccount = await model.UserAccount.findOne({
@@ -117,8 +119,8 @@ export default class UserController extends Controller {
       const reply = await model.UserAccount.create({
         id: 0,
         user_id: id,
-        blance,
-        allow_tx: blance,
+        blance: Number(blance),
+        allow_tx: Number(blance),
       });
 
       await model.TradeType.create({
@@ -141,8 +143,8 @@ export default class UserController extends Controller {
       return
     }
     await model.UserAccount.update({
-      blance: foundUserAccount.blance + blance,
-      allow_tx: foundUserAccount.allow_tx + blance,
+      blance: Number(foundUserAccount.blance) + Number(blance),
+      allow_tx: Number(foundUserAccount.allow_tx) + Number(blance),
     }, {
       where: {
         user_id: id,
