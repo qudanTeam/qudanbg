@@ -130,19 +130,23 @@ export default class User extends Service {
   async findList(filter) {
     const { offset, limit } = this.ctx.helper.parsedPageFromParams(filter);
 
-    let sql = `
+    let sql = `   
     SELECT 
       user.*, 
       vipc.vip_name vipname, 
       au.username recommend_username,
       ua.blance balance,
-      wb.wechat_name wechat_name
+      wb.wechat_name wechat_name,
+      numTemp.invite_num
     FROM user 
     LEFT JOIN vip_record vipr ON vipr.user_id = user.id 
     LEFT JOIN vip_config vipc ON vipc.id = vipr.vip_config_id AND vipc.vip_name = user.vip_name
     LEFT JOIN user au ON au.invite_code = user.recommend_invite_code
     LEFT JOIN user_account ua ON ua.user_id = user.id
     LEFT JOIN weixin_binding wb ON wb.user_id = user.id
+    LEFT JOIN (
+      SELECT u.recommend_invite_code invite_code, COUNT(u.recommend_invite_code) invite_num FROM user u WHERE u.recommend_invite_code IS NOT NULL GROUP BY u.recommend_invite_code
+    ) AS numTemp ON numTemp.invite_code = user.invite_code
     WHERE 1=1
     `;
 
@@ -155,15 +159,39 @@ export default class User extends Service {
     }
 
     if (filter.register_mobile) {
-      sql += ` AND user.register_mobile = ${filter.register_mobile}`;
+      sql += ` AND user.register_mobile = '${filter.register_mobile}'`;
+    }
+
+    if (filter.recommend_invite_code) {
+      sql += ` AND user.recommend_invite_code = '${filter.recommend_invite_code}'`;
+    }
+
+    if (filter.user_type) {
+      
+      if (filter.user_type === 'realname') {
+        // 实名认证
+        sql += ` AND user.status = 3 AND user.finance_status <> 3`;
+      } else if (filter.user_type === 'finance') {
+        // 财务认证
+        sql += ` AND user.finance_status = 3`;
+      } else if (filter.user_type === 'default') {
+        // 默认身份
+        sql += ` AND user.user_type = 0 AND user.status <> 3 AND user.finance_status <> 3`;
+      } else if (filter.user_type === 'vip') {
+        // vip 
+        sql += ` AND user.user_type = 1 AND user.status <> 3 AND user.finance_status <> 3`;
+      } else if (filter.user_type === 'agent') {
+        // 代理
+        sql += ` AND user.user_type = 2 AND user.status <> 3 AND user.finance_status <> 3`;
+      }
     }
 
     if (filter.id_no) {
-      sql += ` AND user.id_no = ${filter.id_no}`;
+      sql += ` AND user.id_no = '${filter.id_no}'`;
     }
 
     if (filter.alipay_no) {
-      sql += ` AND user.alipay_no = ${filter.alipay_no}`;
+      sql += ` AND user.alipay_no = '${filter.alipay_no}'`;
     }
 
     if (filter.username) {
