@@ -50,6 +50,8 @@ export default class User extends Service {
     }
 
     await this.model.User.update({
+      realname: '',
+      id_no: '',
       status: 4,
     }, {
       where: {
@@ -100,6 +102,7 @@ export default class User extends Service {
     }
 
     await this.model.User.update({
+      alipay_no: '',
       finance_status: 4,
     }, {
       where: {
@@ -170,19 +173,19 @@ export default class User extends Service {
       
       if (filter.user_type === 'realname') {
         // 实名认证
-        sql += ` AND user.status = 3 AND user.finance_status <> 3`;
+        sql += ` AND user.status = 3`;
       } else if (filter.user_type === 'finance') {
         // 财务认证
         sql += ` AND user.finance_status = 3`;
       } else if (filter.user_type === 'default') {
         // 默认身份
-        sql += ` AND user.user_type = 0 AND user.status <> 3 AND user.finance_status <> 3`;
+        sql += ` AND user.user_type = 0`;
       } else if (filter.user_type === 'vip') {
         // vip 
-        sql += ` AND user.user_type = 1 AND user.status <> 3 AND user.finance_status <> 3`;
+        sql += ` AND user.user_type = 1`;
       } else if (filter.user_type === 'agent') {
         // 代理
-        sql += ` AND user.user_type = 2 AND user.status <> 3 AND user.finance_status <> 3`;
+        sql += ` AND user.user_type = 2`;
       }
     }
 
