@@ -53,6 +53,9 @@ export default class FinancialController extends Controller {
     ctx.response.body = reply;
   }
 
+  /**
+   * 获取提现列表
+   */
   async withdrawList() {
     const { ctx } = this;
     const {
@@ -65,6 +68,9 @@ export default class FinancialController extends Controller {
     this.ctx.body = result;
   }
 
+  /**
+   * 通过一个提现
+   */
   async passOneWithdraw() {
     const { ctx, service } = this;
     const { id } = ctx.params;
@@ -73,6 +79,9 @@ export default class FinancialController extends Controller {
     ctx.response.body = reply;
   }
 
+  /**
+   * 完成一次提现
+   */
   async finishedWithdraw() {
     const { ctx, service } = this;
     const { id } = ctx.params;
@@ -81,6 +90,9 @@ export default class FinancialController extends Controller {
     ctx.response.body = reply;
   }
 
+  /**
+   * 拒绝一次提现
+   */
   async refuseOneWithdraw() {
     const { ctx, service } = this;
     const { id } = ctx.params;

@@ -12,6 +12,10 @@ export default class User extends Service {
     this.model = ctx.model;
   }
 
+  /**
+   * 通过某次实名认证
+   * @param id 
+   */
   async passAuthRealname(id: number) {
     const foundUser = await this.model.User.findOne({
       where: {
@@ -37,6 +41,10 @@ export default class User extends Service {
     };
   }
 
+  /**
+   * 拒绝某次实名认证, 需要清空实名认证信息
+   * @param id 
+   */
   async refuseAuthRealname(id: number) {
     const foundUser = await this.model.User.findOne({
       where: {
@@ -64,6 +72,10 @@ export default class User extends Service {
     };
   }
 
+  /**
+   * 通过某次财务认证
+   * @param id 
+   */
   async passAuthFinance(id: number) {
     const foundUser = await this.model.User.findOne({
       where: {
@@ -89,6 +101,10 @@ export default class User extends Service {
     };
   }
 
+  /**
+   * 拒绝某次财务认证
+   * @param id 
+   */
   async refuseAuthFinance(id: number) {
     const foundUser = await this.model.User.findOne({
       where: {
@@ -167,6 +183,16 @@ export default class User extends Service {
 
     if (filter.recommend_invite_code) {
       sql += ` AND user.recommend_invite_code = '${filter.recommend_invite_code}'`;
+    }
+
+    if (filter.authenticate_type) {
+      if (filter.authenticate_type === 'realname') {
+        // 实名认证
+        sql += ` AND user.status = 3`;
+      } else if (filter.authenticate_type === 'financial') {
+        // 财务认证
+        sql += ` AND user.finance_status = 3`;
+      }
     }
 
     if (filter.user_type) {
