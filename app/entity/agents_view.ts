@@ -8,17 +8,14 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
   return sequelize.define<agents_viewInstance, agents_viewAttribute>('agents_view', {
     id: {
       type: DataTypes.INTEGER(10),
-      allowNull: true,
+      allowNull: false,
       primaryKey: true,
       defaultValue: '0'
     },
-    user_id: {
+    agent_id: {
       type: DataTypes.INTEGER(10),
-      allowNull: true
-    },
-    level: {
-      type: DataTypes.INTEGER(2),
-      allowNull: true
+      allowNull: true,
+      defaultValue: '0'
     },
     beign_agent_time: {
       type: DataTypes.DATE,
@@ -28,11 +25,15 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.DATE,
       allowNull: true
     },
+    level: {
+      type: DataTypes.INTEGER(2),
+      allowNull: true
+    },
     modify_time: {
       type: DataTypes.DATE,
       allowNull: true
     },
-    parent_agent_id: {
+    user_id: {
       type: DataTypes.INTEGER(10),
       allowNull: false,
       defaultValue: '0'
@@ -40,6 +41,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     parent_user_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true
+    },
+    parent_agent_id: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      defaultValue: '0'
     }
   }, {
     tableName: 'agents_view'

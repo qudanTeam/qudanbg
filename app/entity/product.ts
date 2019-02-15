@@ -190,8 +190,8 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     how_settle: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      type: DataTypes.TEXT,
+      allowNull: true
     },
     expire_begin: {
       type: DataTypes.INTEGER(10),
@@ -210,15 +210,19 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     card_progress_img: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     base_right: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    handing_process: {
+      type: DataTypes.TEXT,
       allowNull: true
     },
     preferential: {
-      type: DataTypes.STRING(200),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     special_tag: {
@@ -245,22 +249,50 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.TEXT,
       allowNull: true
     },
+    card_kind: {
+      type: DataTypes.INTEGER(2),
+      allowNull: true
+    },
     product_poster: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING(1000),
+      allowNull: true
     },
     loan_limit: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      type: DataTypes.INTEGER(11),
+      allowNull: true
     },
     share_logo: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING(1000),
+      allowNull: true
     },
     share_content: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.TEXT,
+      allowNull: true
     },
+    platform_award: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    pos_price: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    pos_deposit: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    },
+    benefits_b: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    benefits_c: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    require_condition: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    }
   }, {
     tableName: 'product'
   });

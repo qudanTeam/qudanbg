@@ -24,12 +24,13 @@ export default class Apply extends Service {
     SELECT 
       p.id, 
       p.product_name, 
+      p.product_type,
       MAX(aly.modify_time) modify_time, 
       COUNT(1) total
     FROM apply aly 
     LEFT JOIN product p ON p.id = aly.product_id 
     WHERE 1=1 ${where}
-    GROUP BY p.id, p.product_name
+    GROUP BY p.id, p.product_name, p.product_type
     ORDER BY modify_time DESC
     `
     const totals = await this.model.query(`
@@ -93,6 +94,10 @@ export default class Apply extends Service {
       where += ` AND aly.create_time <= '${filters.end_time}'`;
     }
 
+    if (filters.isPos) {
+      where += ` AND pae.id IS NOT NULL`
+    }
+
     let sql = `
     SELECT 
       aly.*,
@@ -104,11 +109,26 @@ export default class Apply extends Service {
       u.id_no user_id_no,
       u.register_time,
       u.status user_status,
+      u.alipay_no alipay_no,
       u.user_type user_user_type,
       u.invite_code user_invite_code,
-      u.recommend_invite_code user_recommend_invite_code
+      u.recommend_invite_code user_recommend_invite_code,
+      pae.express_name express_delivery_name,
+      pae.express_no express_delivery_no,
+      pae.pos_no,
+      pae.receiver recipient_name,
+      pae.receiver_mobile recipient_phone,
+      pae.address recipient_address,
+      pae.region,
+      pae.pay_order_no pay_no,
+      pae.pay_price paid_amount,
+      pae.deposit_status deposit_state,
+      pae.deliver_status deliver_status,
+      pae.modify_time paid_time
+
     FROM apply aly 
     LEFT JOIN product p ON p.id = aly.product_id
+    LEFT JOIN pos_apply_ext pae ON pae.apply_id = aly.id
     LEFT JOIN user u ON u.id = aly.user_id
     WHERE 1=1 ${where}
     ORDER BY aly.create_time DESC

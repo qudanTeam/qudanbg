@@ -103,6 +103,7 @@ export default class UserController extends Controller {
     const id = ctx.params.id;
     const {
       blance,
+      action_type,
     } = ctx.request.body;
 
     console.log(blance, 'blance');
@@ -151,9 +152,15 @@ export default class UserController extends Controller {
       }
     });
 
+    let defaultTradeType = 6;
+
+    if (+action_type === 2) {
+      defaultTradeType = 8;
+    }
+
     await model.TradeType.create({
       id: 0,
-      trade_type: 6,
+      trade_type: defaultTradeType,
       price: blance,
       create_time: new Date(),
       modify_time: new Date(),

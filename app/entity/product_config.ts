@@ -6,6 +6,12 @@ import {product_configInstance, product_configAttribute} from './db';
 
 module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) {
   return sequelize.define<product_configInstance, product_configAttribute>('product_config', {
+    id: {
+      type: DataTypes.INTEGER(10),
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
     product_id: {
       type: DataTypes.INTEGER(10),
       allowNull: true
@@ -25,12 +31,6 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     modify_time: {
       type: DataTypes.DATE,
       allowNull: true
-    },
-    id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
     }
   }, {
     tableName: 'product_config'

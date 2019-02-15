@@ -84,17 +84,22 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     loan_money: {
-      type: DataTypes.DOUBLE,
-      allowNull: true,
+      type: "DOUBLE",
+      allowNull: true
     },
     loan_expire: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
     card_money: {
-      type: DataTypes.DOUBLE,
-      allowNull: true,
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
+    is_settle: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      defaultValue: '0'
+    }
   }, {
     tableName: 'apply'
   });

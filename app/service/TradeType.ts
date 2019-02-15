@@ -120,9 +120,15 @@ export default class TradeType extends Service {
     }
 
     let sql = `
-    SELECT tt.*, aly.apply_id_code apply_id_code, u.invite_code invite_code FROM trade_type tt 
+    SELECT 
+      tt.*, 
+      aly.apply_id_code apply_id_code, 
+      prod.product_type product_type,
+      u.invite_code invite_code 
+    FROM trade_type tt 
     LEFT JOIN user u ON u.id = tt.user_id 
     LEFT JOIN apply aly ON aly.id = tt.apply_id
+    LEFT JOIN product prod ON prod.id = aly.product_id
     WHERE tt.trade_type IN (2,3,5) AND tt.price > 0 ${where}
     `
     

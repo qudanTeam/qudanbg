@@ -38,28 +38,29 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     need_verify_code: {
       type: DataTypes.INTEGER(2),
-      allowNull: true,
+      allowNull: true
     },
     need_mobile_verify_code: {
       type: DataTypes.INTEGER(2),
-      allowNull: true,
+      allowNull: true
     },
     verify_code_link: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     mobile_verify_code_link: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: true
     },
     is_delete: {
-      type: DataTypes.TINYINT(2),
+      type: DataTypes.INTEGER(2),
       allowNull: true,
+      defaultValue: '0'
     },
     has_link: {
-      type: DataTypes.TINYINT(2),
-      allowNull: true,
-    },
+      type: DataTypes.INTEGER(2),
+      allowNull: true
+    }
   }, {
     tableName: 'category'
   });

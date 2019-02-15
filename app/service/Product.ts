@@ -50,7 +50,7 @@ interface createProductAttribute {
   burundian?:string;
   settlement_type?:number;
   expire_unit?:string;
-  how_settle:string;
+  how_settle?:string;
   expire_begin?:number;
   expire_end?:number;
   commission_standard?:string;

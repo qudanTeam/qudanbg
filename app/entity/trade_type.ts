@@ -80,7 +80,8 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     },
     vip_price: {
       type: DataTypes.DECIMAL,
-      allowNull: true
+      allowNull: true,
+      defaultValue: '0.00'
     },
     reject_reason: {
       type: DataTypes.STRING(1000),
@@ -107,9 +108,13 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true
     },
     product_id: {
-      type: DataTypes.INTEGER(10),
-      allowNull: true,
+      type: DataTypes.INTEGER(11),
+      allowNull: true
     },
+    platform_price: {
+      type: DataTypes.DECIMAL,
+      allowNull: true
+    }
   }, {
     tableName: 'trade_type'
   });
