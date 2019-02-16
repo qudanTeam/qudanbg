@@ -113,6 +113,7 @@ export default class Apply extends Service {
       u.user_type user_user_type,
       u.invite_code user_invite_code,
       u.recommend_invite_code user_recommend_invite_code,
+      pae.id pae_id,
       pae.express_name express_delivery_name,
       pae.express_no express_delivery_no,
       pae.pos_no,
@@ -152,5 +153,36 @@ export default class Apply extends Service {
       pageSize: filters.pageSize,
       total: totals[0].c,
     };
+  }
+
+  async ship(id: number, values: any) {
+    this.model.PosApplyExt.update({
+      express_name: values.express_name,
+      express_no: values.express_no,
+      pos_no: values.pos_no,
+      deliver_status: 2,
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    return {
+      id,
+    }
+  }
+
+  async signing(id: number) {
+    this.model.PosApplyExt.update({
+      deliver_status: 3,
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    return {
+      id,
+    }
   }
 }

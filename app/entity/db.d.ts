@@ -268,6 +268,7 @@ export interface pos_apply_extAttribute {
   invite_code?:string;
   deliver_status?:number;
   pay_order_no?:string;
+  pos_no?:string;
 }
 export interface pos_apply_extInstance extends Sequelize.Instance<pos_apply_extAttribute>, pos_apply_extAttribute { }
 export interface pos_apply_extModel extends Sequelize.Model<pos_apply_extInstance, pos_apply_extAttribute> { }

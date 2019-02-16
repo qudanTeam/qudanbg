@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-qudan-bg",
-    "starttest": "egg-scripts start --daemon --title=egg-server-qudan-test-bg",
+    "starttest": "egg-scripts start --port 8781 --daemon --title=egg-server-qudan-test-bg",
     "stop": "egg-scripts stop --title=egg-server-qudan-bg",
     "stoptest": "egg-scripts stop --title=egg-server-qudan-test-bg",
     "dev": "egg-bin dev -r egg-ts-helper/register",

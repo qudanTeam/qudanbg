@@ -16,6 +16,7 @@ import ExportCustomerPdcView from '../../../app/model/customer_pdc_view';
 import ExportMessage from '../../../app/model/message';
 import ExportMessageStore from '../../../app/model/message_store';
 import ExportOrderView from '../../../app/model/order_view';
+import ExportPosApplyExt from '../../../app/model/pos_apply_ext';
 import ExportProduct from '../../../app/model/product';
 import ExportProductCategoryRelation from '../../../app/model/product_category_relation';
 import ExportProductConfig from '../../../app/model/product_config';
@@ -47,6 +48,7 @@ declare module 'sequelize' {
     Message: ReturnType<typeof ExportMessage>;
     MessageStore: ReturnType<typeof ExportMessageStore>;
     OrderView: ReturnType<typeof ExportOrderView>;
+    PosApplyExt: ReturnType<typeof ExportPosApplyExt>;
     Product: ReturnType<typeof ExportProduct>;
     ProductCategoryRelation: ReturnType<typeof ExportProductCategoryRelation>;
     ProductConfig: ReturnType<typeof ExportProductConfig>;

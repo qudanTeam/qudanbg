@@ -90,6 +90,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       allowNull: true,
       defaultValue: '0'
     },
+    pos_no: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     pay_order_no: {
       type: DataTypes.STRING(255),
       allowNull: true

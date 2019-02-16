@@ -37,6 +37,8 @@ export default (app: Application) => {
   app.router.put('/orders/:id/refuse', app.controller.order.refuseOne);
   app.router.resources('orders', '/orders', app.controller.order);
   app.router.get('/applys/:id/trades', app.controller.apply.trades);
+  app.router.put('/applys/:id/shipPos', app.controller.apply.shipPos);
+  app.router.put('/applys/:id/signing', app.controller.apply.signing);
   app.router.resources('applys', '/applys', app.controller.apply);
   app.router.resources('categories', '/categories', app.controller.category);
   app.router.resources('product_configs', '/product_configs', app.controller.productConfig);
