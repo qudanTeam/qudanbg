@@ -304,6 +304,8 @@ export interface order_viewAttribute {
   syr_register_mobile?:string;
   finished_task_count?:number;
   finished_task_price?:number;
+  deposit_status?:number;
+  pae_id?:number;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }

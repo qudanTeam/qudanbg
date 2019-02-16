@@ -70,6 +70,20 @@ export default class Order extends Service {
     }
   }
 
+  async returnDeposit(id: number) {
+    await this.model.PosApplyExt.update({
+      deposit_status: 3,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    }
+  }
+
   async passOne(id: number, others: any) {
 
     const { ctx, config } = this;

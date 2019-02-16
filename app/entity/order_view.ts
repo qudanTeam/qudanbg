@@ -126,7 +126,15 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     finished_task_price: {
       type: DataTypes.DECIMAL,
       allowNull: true
-    }
+    },
+    pae_id: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+    },
+    deposit_status: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+    },
   }, {
     tableName: 'order_view'
   });

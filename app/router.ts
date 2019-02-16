@@ -35,6 +35,7 @@ export default (app: Application) => {
   app.router.resources('message_store', "/message_store", app.controller.message);
   app.router.put('/orders/:id/pass', app.controller.order.passOne);
   app.router.put('/orders/:id/refuse', app.controller.order.refuseOne);
+  app.router.put('/orders/:id/returnDeposit', app.controller.order.returnDeposit);
   app.router.resources('orders', '/orders', app.controller.order);
   app.router.get('/applys/:id/trades', app.controller.apply.trades);
   app.router.put('/applys/:id/shipPos', app.controller.apply.shipPos);

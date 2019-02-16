@@ -34,6 +34,14 @@ export default class OrderController extends Controller {
     this.ctx.body = reply;
   }
 
+  async returnDeposit() {
+    const { ctx } = this;
+    const { id } = ctx.params;
+    const reply = await ctx.service.order.returnDeposit(id);
+
+    this.ctx.body = reply;
+  }
+
   async refuseOne() {
     const { ctx } = this;
     
