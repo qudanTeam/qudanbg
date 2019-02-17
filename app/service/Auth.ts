@@ -38,6 +38,9 @@ export default class Auth extends Service {
         expiresIn: 7 * 24 * 3600,
       });
 
+      // jwt.decode('', {
+        
+      // })
       return {
         ok: true,
         token,
@@ -47,5 +50,26 @@ export default class Auth extends Service {
     return {
       ok: false,
     };
+  }
+
+  async getUserByToken(token: string) {
+    const { model, config } = this;
+    const decoded:any = await jwt.verify(token, config.jwt.salt);
+    let uid = '';
+
+    if (typeof decoded === 'string') {
+      uid = decoded;
+    } else {
+      uid = decoded.uid;
+    }
+
+    // const { uid = '' } = decoded;
+  
+
+    return model.Admin.findOne({
+      where: {
+        id: uid,
+      }
+    });
   }
 }

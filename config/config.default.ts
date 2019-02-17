@@ -8,7 +8,9 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1544533807654_2864';
 
   // add your egg config in here
-  config.middleware = [];
+  config.middleware = [
+    'auth',
+  ];
 
   config.onerror = {
     all(err, ctx: Context) {
@@ -49,6 +51,11 @@ export default (appInfo: EggAppInfo) => {
     jwt: {
       salt: 'uiujwnerhh&^&asdfwqerqwer',
     },
+
+    whiteList: [
+      '/login',
+      '/upload',
+    ],
 
     qiniu: {
       key: '3zwCbYQEVLBBAyWpww2I_mtvL3HDNzx1ro6RVydz',

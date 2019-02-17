@@ -6,6 +6,7 @@ import ExportAdmin from '../../../app/service/Admin';
 import ExportAgent from '../../../app/service/Agent';
 import ExportAgentConfig from '../../../app/service/AgentConfig';
 import ExportApply from '../../../app/service/Apply';
+import ExportApplyPosExt from '../../../app/service/ApplyPosExt';
 import ExportAuth from '../../../app/service/Auth';
 import ExportBanner from '../../../app/service/Banner';
 import ExportCategory from '../../../app/service/Category';
@@ -27,6 +28,7 @@ declare module 'egg' {
     agent: ExportAgent;
     agentConfig: ExportAgentConfig;
     apply: ExportApply;
+    applyPosExt: ExportApplyPosExt;
     auth: ExportAuth;
     banner: ExportBanner;
     category: ExportCategory;

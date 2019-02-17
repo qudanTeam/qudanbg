@@ -54,6 +54,7 @@ export default (app: Application) => {
   app.router.put('/financials/:id/passOneSalary', app.controller.financial.passOneSalary);
   app.router.put('/financials/:id/refuseOneSalary', app.controller.financial.refuseOneSalary);
   app.router.get('/financials/withdraw', app.controller.financial.withdrawList);
+  app.router.get('/financials/posApplyList', app.controller.financial.getPosApplyList);
   app.router.put('/financials/:id/passOneWithdraw', app.controller.financial.passOneWithdraw);
   app.router.put('/financials/:id/refuseOneWithdraw', app.controller.financial.refuseOneWithdraw);
   app.router.put('/financials/:id/finishedWithdraw', app.controller.financial.finishedWithdraw);

@@ -102,4 +102,16 @@ export default class FinancialController extends Controller {
     ctx.response.body = reply;
   }
 
+  async getPosApplyList() {
+    const { ctx, service } = this;
+    const { page = 0, pageSize = 15, ...rest } = ctx.request.query;
+    const reply = await service.applyPosExt.PosApplyList({
+      page,
+      pageSize,
+      ...rest,
+    });
+
+    this.ctx.body = reply;
+  }
+
 }

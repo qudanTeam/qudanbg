@@ -135,6 +135,22 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.INTEGER(11),
       allowNull: true,
     },
+    pos_apply_invite_code: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    pay_order_no: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    pay_price: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    pay_time: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   }, {
     tableName: 'order_view'
   });

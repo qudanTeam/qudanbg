@@ -292,7 +292,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     require_condition: {
       type: DataTypes.TEXT,
       allowNull: true
-    }
+    },
+    update_admin: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     tableName: 'product'
   });

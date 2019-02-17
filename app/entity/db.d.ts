@@ -306,6 +306,10 @@ export interface order_viewAttribute {
   finished_task_price?:number;
   deposit_status?:number;
   pae_id?:number;
+  pos_apply_invite_code?:string;
+  pay_order_no?:string;
+  pay_price?:string;
+  pay_time?:Date;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
 export interface order_viewModel extends Sequelize.Model<order_viewInstance, order_viewAttribute> { }
@@ -382,6 +386,7 @@ export interface productAttribute {
   benefits_b?:string;
   benefits_c?:string;
   require_condition?:string;
+  update_admin?:string;
 }
 export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
 export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }

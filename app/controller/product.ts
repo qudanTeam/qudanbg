@@ -27,6 +27,19 @@ export default class ProductController extends Controller {
     const { ctx, service } = this;
     const { id } = ctx.params;
     const { body } = ctx.request;
+    const auth = ctx.request.header.authorization;
+    // const auth = '';
+    // console.log(ctx.request.headers);
+    // console.log(ctx.request.header);
+    const token = auth.replace('Bearer', '').trim();
+    const admin = await service.auth.getUserByToken(token);
+
+    if (!admin) {
+      body.update_admin = '';
+    } else {
+      body.update_admin = admin.username;
+    }
+    
     const reply = await service.product.update(id, body);
 
     this.ctx.body = {
