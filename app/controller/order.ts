@@ -47,7 +47,7 @@ export default class OrderController extends Controller {
     
     const { id } = ctx.params;
 
-    const reply = await ctx.service.order.refuseOne(id);
+    const reply = await ctx.service.order.refuseOne(id, ctx.request.body);
 
     this.ctx.body = reply;
   }

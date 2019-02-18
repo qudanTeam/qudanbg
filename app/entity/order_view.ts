@@ -135,6 +135,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.INTEGER(11),
       allowNull: true,
     },
+    deliver_status: {
+      type: DataTypes.INTEGER(11),
+      allowNull: true,
+    },
     pos_apply_invite_code: {
       type: DataTypes.STRING,
       allowNull: true,

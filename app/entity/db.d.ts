@@ -305,6 +305,7 @@ export interface order_viewAttribute {
   finished_task_count?:number;
   finished_task_price?:number;
   deposit_status?:number;
+  deliver_status?:number;
   pae_id?:number;
   pos_apply_invite_code?:string;
   pay_order_no?:string;

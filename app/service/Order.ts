@@ -135,10 +135,12 @@ export default class Order extends Service {
     }
   }
 
-  async refuseOne(id: number) {
+  async refuseOne(id: number, body: any) {
+    const { reject_reason } = body;
 
     await this.model.Apply.update({
       modify_time: new Date(),
+      reject_reason,
       status: 3,
       official_status: 3,
     }, {
