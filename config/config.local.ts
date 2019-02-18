@@ -20,7 +20,8 @@ export default () => {
   const bizConfig = {
     schedule: {
       month: '3600s',
-    }
+    },
+    javaAPI: 'http://txmsqudan.myhshop.top/msqudan/api',
   }
   return {
     ...config,

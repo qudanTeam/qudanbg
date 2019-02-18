@@ -110,19 +110,23 @@ export default class Order extends Service {
     });
 
     if (resp.status !== 200) {
-      ctx.throw(400, '远端接口服务出现问题，请稍后再试');
-      // await this.model
-      await this.model.Apply.update({
-        modify_time: new Date(),
-        status: 1,
-        official_status: 1,
-      }, {
-        where: {
-          id,
-        }
-      });
-      return;
+      console.log(resp);
     }
+
+    // if (resp.status !== 200) {
+    //   ctx.throw(400, '远端接口服务出现问题，请稍后再试');
+    //   // await this.model
+    //   await this.model.Apply.update({
+    //     modify_time: new Date(),
+    //     status: 1,
+    //     official_status: 1,
+    //   }, {
+    //     where: {
+    //       id,
+    //     }
+    //   });
+    //   return;
+    // }
 
     
 
