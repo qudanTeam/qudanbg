@@ -94,7 +94,7 @@ export default class Apply extends Service {
       where += ` AND aly.create_time <= '${filters.end_time}'`;
     }
 
-    if (filters.isPos) {
+    if (filters.isPos && filters.isPos === 'true') {
       where += ` AND pae.id IS NOT NULL`
     }
 
