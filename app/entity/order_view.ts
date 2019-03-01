@@ -151,6 +151,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING,
       allowNull: true,
     },
+    sqr_id_no: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     pay_time: {
       type: DataTypes.DATE,
       allowNull: true,

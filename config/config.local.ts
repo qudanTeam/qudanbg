@@ -9,7 +9,7 @@ export default () => {
     port: 3306,
     username: 'root',
     password: 'mdlqd785',
-    database: 'qudan_test',
+    database: 'qudan',
     define: {
       underscored: false,
       charset: 'utf8mb4',

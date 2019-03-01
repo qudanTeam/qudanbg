@@ -310,6 +310,7 @@ export interface order_viewAttribute {
   pos_apply_invite_code?:string;
   pay_order_no?:string;
   pay_price?:string;
+  sqr_id_no?:string;
   pay_time?:Date;
 }
 export interface order_viewInstance extends Sequelize.Instance<order_viewAttribute>, order_viewAttribute { }
