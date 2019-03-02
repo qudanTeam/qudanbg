@@ -1,5 +1,8 @@
 import { Controller } from 'egg';
 
+/**
+ * test
+ */
 export default class AdminController extends Controller {
   async index() {
     // this.ctx.body = 'Welcome to this service';
