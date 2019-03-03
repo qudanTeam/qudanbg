@@ -5,10 +5,10 @@ export default () => {
 
   config.sequelize = {
     dialect: 'mysql',
-    host: '47.99.242.122',
+    host: 'rm-bp15h0ta135y2vmde.mysql.rds.aliyuncs.com',
     port: 3306,
-    username: 'root',
-    password: 'mdlqd785',
+    username: 'qudan',
+    password: 'Qd20195000',
     database: 'qudan',
     define: {
       underscored: false,
