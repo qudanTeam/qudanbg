@@ -22,10 +22,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "mdlqd785",
+    "username": "qudan",
+    "password": "Qd20195000",
     "database": "qudan",
-    "host": "47.99.242.122",
+    "host": "rm-bp15h0ta135y2vmde.mysql.rds.aliyuncs.com",
     "dialect": "mysql",
     "define": {
       "underscored": false,
