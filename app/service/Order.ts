@@ -24,6 +24,7 @@ export default class Order extends Service {
 
     if (filters.product_name) {
       condition['product_name'] = filters.product_name;
+      
     }
 
     if (filters.user_id) {
@@ -31,7 +32,11 @@ export default class Order extends Service {
     }
 
     if (filters.invite_code) {
-      condition['invite_code'] = filters.invite_code;
+      // condition['invite_code'] = filters.invite_code;
+      condition[this.model.Op.or] = [
+        {'invite_code': filters.invite_code},
+        {'user_invite_code': filters.invite_code},
+      ]
     }
 
     if (filters.status) {
