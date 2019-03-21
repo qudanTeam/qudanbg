@@ -1,5 +1,6 @@
 import { Service, Context } from 'egg';
 import sequelize = require('sequelize');
+import * as moment from 'moment';
 
 export default class Order extends Service {
   model: sequelize.Sequelize;
@@ -15,6 +16,16 @@ export default class Order extends Service {
     const { offset, limit } = ctx.helper.parsedPageFromParams(filters);
 
     const condition = {}
+
+    if (filters.sqr_name) {
+      condition['name'] = {
+        [this.model.Op.like]: `%${filters.sqr_name}%`,
+      }
+    }
+
+    if (filters.sqr_id_no) {
+      condition['id_no'] = filters.sqr_id_no;
+    }
 
     if (filters.order_no) {
       condition['apply_id_code'] = {
@@ -49,9 +60,18 @@ export default class Order extends Service {
 
     if (filters.start_time && filters.end_time) {
       condition['create_time'] = {
-        [this.model.Op.gte]: `${filters.start_time}`,
-        [this.model.Op.lte]: `${filters.end_time}`,
+        [this.model.Op.gte]: `${moment(filters.start_time).startOf('day').format('YYYY-MM-DD HH:mm:ss')}`,
+        [this.model.Op.lte]: `${moment(filters.end_time).endOf('day').format('YYYY-MM-DD HH:mm:ss')}`,
       }
+    }
+    
+    if (limit === 9999) {
+      return await this.model.OrderView.findAll({
+        where: condition,
+        order: [
+          ['create_time', 'DESC'],
+        ],
+      });
     }
 
     const reply = await this.model.OrderView.findAll({

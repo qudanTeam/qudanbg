@@ -55,6 +55,7 @@ export default (appInfo: EggAppInfo) => {
     whiteList: [
       '/login',
       '/upload',
+      '/export/orders',
     ],
 
     qiniu: {
