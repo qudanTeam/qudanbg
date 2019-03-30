@@ -106,4 +106,19 @@ export default class ProductController extends Controller {
     };
     
   }
+
+  /**
+   * 删除商品
+   */
+  async destroy() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+
+    await service.product.delete(id);
+
+    ctx.body = {
+      message: 'ok',
+    }
+  }
+  
 }

@@ -160,7 +160,9 @@ export default class Product extends Service {
     const { ctx } = this;
     const { offset, limit } = ctx.helper.parsedPageFromParams(filters);
 
-    let condition:any = {}
+    let condition:any = {
+      deleted: false,
+    }
 
     if (filters.product_id) {
       condition.id = {
@@ -466,6 +468,29 @@ export default class Product extends Service {
     return {
       product: productView,
     };
+  }
+
+  async delete(id: number) {
+    const foundProduct = await this.model.Product.findOne({
+      where: {
+        id,
+      }
+    });
+
+    if (!foundProduct) {
+      this.ctx.throw(404, 'not found this product');
+      return
+    }
+
+    await this.model.Product.update({
+      deleted: true,
+    }, {
+      where: {
+        id,
+      },
+    });
+
+    return true;
   }
 
 }

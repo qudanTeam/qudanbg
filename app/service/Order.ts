@@ -24,7 +24,15 @@ export default class Order extends Service {
     }
 
     if (filters.sqr_id_no) {
-      condition['id_no'] = filters.sqr_id_no;
+      condition['id_no'] = {
+        [this.model.Op.like]: `%${filters.sqr_id_no}%`,
+      };
+    }
+
+    if (filters.sqr_phone) {
+      condition['mobile'] = {
+        [this.model.Op.like]: `%${filters.sqr_phone}%`,
+      };
     }
 
     if (filters.order_no) {
@@ -34,19 +42,31 @@ export default class Order extends Service {
     }
 
     if (filters.product_name) {
-      condition['product_name'] = filters.product_name;
+      condition['product_name'] = {
+        [this.model.Op.like]: `%${filters.product_name}%`,
+      };
       
     }
 
     if (filters.user_id) {
-      condition['user_id'] = filters.user_id;
+      condition['user_id'] = {
+        [this.model.Op.like]: `%${filters.user_id}%`
+      };
     }
 
     if (filters.invite_code) {
       // condition['invite_code'] = filters.invite_code;
       condition[this.model.Op.or] = [
-        {'invite_code': filters.invite_code},
-        {'user_invite_code': filters.invite_code},
+        {
+          'invite_code': {
+            [this.model.Op.like]: `%${filters.invite_code}%`,
+          },
+        },
+        {
+          'user_invite_code': {
+            [this.model.Op.like]: `%${filters.invite_code}%`,
+          },  
+        },
       ]
     }
 

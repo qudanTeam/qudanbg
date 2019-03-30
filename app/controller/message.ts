@@ -42,4 +42,15 @@ export default class MessageController extends Controller {
       reply,
     };
   }
+
+  async destroy() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+
+    await service.message.delete(id);
+
+    ctx.body = {
+      message: 'ok',
+    }
+  }
 }

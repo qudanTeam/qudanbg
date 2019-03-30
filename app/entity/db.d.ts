@@ -175,6 +175,7 @@ export interface customerAttribute {
   modify_time?:Date;
   mobile?:string;
   weixin?:string;
+  deleted?:boolean;
 }
 export interface customerInstance extends Sequelize.Instance<customerAttribute>, customerAttribute { }
 export interface customerModel extends Sequelize.Model<customerInstance, customerAttribute> { }
@@ -187,6 +188,7 @@ export interface customer_pdc_viewAttribute {
   modify_time?:Date;
   mobile?:string;
   weixin?:string;
+  deleted?:boolean;
   product_count?:number;
 }
 export interface customer_pdc_viewInstance extends Sequelize.Instance<customer_pdc_viewAttribute>, customer_pdc_viewAttribute { }
@@ -226,6 +228,7 @@ export interface message_storeAttribute {
   create_at?:Date;
   update_at?:Date;
   user_ids?:string;
+  deleted?:boolean;
 }
 export interface message_storeInstance extends Sequelize.Instance<message_storeAttribute>, message_storeAttribute { }
 export interface message_storeModel extends Sequelize.Model<message_storeInstance, message_storeAttribute> { }
@@ -389,6 +392,7 @@ export interface productAttribute {
   benefits_c?:string;
   require_condition?:string;
   update_admin?:string;
+  deleted?:boolean;
 }
 export interface productInstance extends Sequelize.Instance<productAttribute>, productAttribute { }
 export interface productModel extends Sequelize.Model<productInstance, productAttribute> { }

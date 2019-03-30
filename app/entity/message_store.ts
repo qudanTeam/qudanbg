@@ -41,7 +41,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     user_ids: {
       type: DataTypes.STRING(255),
       allowNull: true
-    }
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   }, {
     tableName: 'message_store'
   });

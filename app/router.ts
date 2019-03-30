@@ -59,4 +59,5 @@ export default (app: Application) => {
   app.router.put('/financials/:id/refuseOneWithdraw', app.controller.financial.refuseOneWithdraw);
   app.router.put('/financials/:id/finishedWithdraw', app.controller.financial.finishedWithdraw);
   app.router.get('/export/orders', app.controller.export.exportOrder);
+  app.router.get('/export/users', app.controller.export.exportUser);
 };

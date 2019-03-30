@@ -178,11 +178,11 @@ export default class User extends Service {
     }
 
     if (filter.register_mobile) {
-      sql += ` AND user.register_mobile = '${filter.register_mobile}'`;
+      sql += ` AND user.register_mobile LIKE '%${filter.register_mobile}%'`;
     }
 
     if (filter.recommend_invite_code) {
-      sql += ` AND user.recommend_invite_code = '${filter.recommend_invite_code}'`;
+      sql += ` AND user.recommend_invite_code LIKE '%${filter.recommend_invite_code}%'`;
     }
 
     if (filter.authenticate_type) {
@@ -216,11 +216,11 @@ export default class User extends Service {
     }
 
     if (filter.id_no) {
-      sql += ` AND user.id_no = '${filter.id_no}'`;
+      sql += ` AND user.id_no LIKE '%${filter.id_no}%'`;
     }
 
     if (filter.alipay_no) {
-      sql += ` AND user.alipay_no = '${filter.alipay_no}'`;
+      sql += ` AND user.alipay_no LIKE '%${filter.alipay_no}%'`;
     }
 
     if (filter.username) {

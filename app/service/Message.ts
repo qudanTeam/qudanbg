@@ -66,6 +66,9 @@ export default class Message extends Service {
     const list = await this.model.MessageStore.findAll({
       offset,
       limit,
+      where: {
+        deleted: false,
+      }
     });
 
     const decodeUserIds = (user_ids) => {
@@ -76,7 +79,11 @@ export default class Message extends Service {
       item.user_ids = decodeUserIds(item.user_ids);
     }
 
-    const total = await this.model.MessageStore.count();
+    const total = await this.model.MessageStore.count({
+      where: {
+        deleted: false,
+      }
+    });
 
     return {
       list,
@@ -126,5 +133,26 @@ export default class Message extends Service {
     return {
       ids: userIds,
     }
+  }
+
+  async delete(id: number) {
+    const message = await this.model.MessageStore.findOne({
+      where: {id},
+    });
+
+    if (!message) {
+      this.ctx.throw(404, 'not found this customer');
+      return;
+    }
+
+    await this.model.MessageStore.update({
+      deleted: true,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return true;
   }
 }

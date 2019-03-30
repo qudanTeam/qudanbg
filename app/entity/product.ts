@@ -297,6 +297,10 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.STRING,
       allowNull: true,
     },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   }, {
     tableName: 'product'
   });

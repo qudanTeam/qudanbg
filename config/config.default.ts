@@ -56,6 +56,7 @@ export default (appInfo: EggAppInfo) => {
       '/login',
       '/upload',
       '/export/orders',
+      '/export/users',
     ],
 
     qiniu: {

@@ -14,7 +14,9 @@ export default class Customer extends Service {
     const { ctx } = this;
     const { offset, limit } = ctx.helper.parsedPageFromParams(filters);
 
-    const condition = {}
+    const condition = {
+      deleted: false,
+    }
 
     if (filters.id) {
       condition['id'] = {
@@ -88,5 +90,53 @@ export default class Customer extends Service {
     return {
       id: customer.id,
     }
+  }
+
+  async update(id: number, body: any) {
+    const customer = await this.model.Customer.findOne({
+      where: {id},
+    });
+
+    if (!customer) {
+      this.ctx.throw(404, 'not found this customer');
+      return;
+    }
+
+    await this.model.Customer.update({
+      name: body.name,
+      mobile: body.mobile,
+      weixin: body.weixin,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return {
+      id,
+    }
+  }
+
+  async delete(id: number) {
+    const customer = await this.model.Customer.findOne({
+      where: {id},
+    });
+
+    // console.log()
+
+    if (!customer) {
+      this.ctx.throw(404, 'not found this customer');
+      return;
+    }
+
+    await this.model.Customer.update({
+      deleted: true,
+    }, {
+      where: {
+        id,
+      }
+    });
+
+    return true;
   }
 }

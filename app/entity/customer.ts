@@ -33,7 +33,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
     weixin: {
       type: DataTypes.STRING(1100),
       allowNull: true
-    }
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   }, {
     tableName: 'customer'
   });

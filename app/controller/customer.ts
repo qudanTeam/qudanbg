@@ -38,4 +38,24 @@ export default class CustomerController extends Controller {
     ctx.status = 201;
     ctx.body = reply;
   }
+
+  async update() {
+    const { ctx, service } = this;
+    const { id } = ctx.params;
+    const { body } = ctx.request;
+
+    const reply = await service.customer.update(id, body);
+
+    ctx.body = reply;
+  }
+
+  async destroy() {
+    const { ctx, service } = this;
+    const id = ctx.params.id;
+    await service.customer.delete(id);
+
+    ctx.body = {
+      message: 'ok',
+    }
+  }
 }

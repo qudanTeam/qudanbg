@@ -36,7 +36,11 @@ module.exports = function(sequelize: sequelize.Sequelize, DataTypes: DataTypes) 
       type: DataTypes.BIGINT,
       allowNull: true,
       defaultValue: '0'
-    }
+    },
+    deleted: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
   }, {
     tableName: 'customer_pdc_view'
   });
