@@ -65,7 +65,7 @@ export default (appInfo: EggAppInfo) => {
       bulket: 'qudan-idc',
     },
 
-    javaAPI: 'http://47.99.242.122:8763/msqudan/api',
+    javaAPI: 'http://47.110.134.189:8763/msqudan/api',
   };
 
   // the return config will combines to EggAppConfig

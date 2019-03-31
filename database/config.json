@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "qudan",
+    "database": "qudansh",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "define": {
@@ -17,7 +17,7 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "qudan",
+    "database": "qudansh",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
