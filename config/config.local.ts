@@ -11,7 +11,7 @@ export default () => {
     username: 'qudan',
     // password: 'mdlqd785',
     password: 'Qd20195000',
-    database: 'qudan',
+    database: 'qudansh',
     define: {
       underscored: false,
       charset: 'utf8mb4',

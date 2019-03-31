@@ -24,7 +24,7 @@
   "production": {
     "username": "qudan",
     "password": "Qd20195000",
-    "database": "qudan",
+    "database": "qudansh",
     "host": "rm-bp15h0ta135y2vmde.mysql.rds.aliyuncs.com",
     "dialect": "mysql",
     "define": {
