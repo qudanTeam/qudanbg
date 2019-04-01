@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "qudansh",
+    "database": "qudan",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "define": {
@@ -17,14 +17,14 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "qudansh",
+    "database": "qudan",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "qudan",
     "password": "Qd20195000",
-    "database": "qudansh",
+    "database": "qudan",
     "host": "rm-bp15h0ta135y2vmde.mysql.rds.aliyuncs.com",
     "dialect": "mysql",
     "define": {
